@@ -1,0 +1,18 @@
+-fold_from_loops:target:pose {0}
+-fold_from_loops:target:chain {1}
+-fold_from_loops:target:pdb_count
+-fold_from_loops:target:loops {2}
+-fold_from_loops:target:order {3}
+-in:file:s {0}
+-in:file:fasta {4}
+-in:file:psipred_ss2 {5}
+-loops:loop_file {6}
+-fold_from_loops:scaffold:nopose
+-fold_from_loops:scaffold:cst_file {7}
+-fold_from_loops:hb_srbb {8}
+-fold_from_loops:native_ca_cst
+-in:ignore_unrecognized_res
+-run:intermediate_structures
+-out:nstruct {9}
+-out:file:silent_struct_type binary
+-out:overwrite
