@@ -6,6 +6,7 @@
 
 import re
 from collections import Iterable
+import numpy as np
 
 
 class SecondaryStructure( object ):
@@ -51,13 +52,13 @@ class SecondaryStructure( object ):
             else: return e1
 
     def get_x(self, key):
-        return self.get_xyz(key)[0]
+        return 0.0 if np.isclose(self.get_xyz(key)[0], 0.0) else self.get_xyz(key)[0]
 
     def get_y(self, key):
-        return self.get_xyz(key)[1]
+        return 0.0 if np.isclose(self.get_xyz(key)[1], 0.0) else self.get_xyz(key)[1]
 
     def get_z(self, key):
-        return self.get_xyz(key)[2]
+        return 0.0 if np.isclose(self.get_xyz(key)[2], 0.0) else self.get_xyz(key)[2]
 
     def __eq__( self, other ):
         return self.__hash__() == other.__hash__()
