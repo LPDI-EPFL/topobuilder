@@ -69,6 +69,7 @@ class VirtualStructure(object):
     def tilt_z_degrees(self, angle): self.tilt_degrees(z_angle = angle)
 
     def tilt_degrees(self, x_angle = 0, y_angle = 0, z_angle = 0, store = True):
+        if x_angle == 0 and y_angle == 0 and z_angle == 0: return
         self.tilt_radiants(x_angle = np.radians(x_angle),
                            y_angle = np.radians(y_angle),
                            z_angle = np.radians(z_angle), store = store)

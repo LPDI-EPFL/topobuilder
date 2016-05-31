@@ -40,6 +40,9 @@ class FormFabric(object):
                     ss["shift_x"] = width + xdist
                 else:
                     ss["shift_x"] += width
+                if "tilt_x" not in ss: ss["tilt_x"] = 0.0
+                if "tilt_y" not in ss: ss["tilt_y"] = 0.0
+                if "tilt_z" not in ss: ss["tilt_z"] = 0.0
                 secstr = SS(ss)
                 vs = VirtualMaker(ss["length"], [0., 0., 0.], type=ss["type"])
                 if secstr.ref is not None:
@@ -51,6 +54,8 @@ class FormFabric(object):
                                     ref = z
                                     break
                     vs.atoms = ref["coordinates"]
+                else:
+                    vs.tilt_degrees(ss["tilt_x"], ss["tilt_y"], ss["tilt_z"])
                 xdist = _DEF_X_DISTANCE["E"] if vs.get_type() == "E" else _DEF_X_DISTANCE["H"]
                 vs.shift(ss["shift_x"], ss["shift_y"], ss["shift_z"])
                 width = vs.centre[0]

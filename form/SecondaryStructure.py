@@ -23,9 +23,13 @@ class SecondaryStructure( object ):
         self.length  = desc["length"] if "length" in desc else 0
         self.struc   = None
 
-        self.shift_x = desc["shift_x"] if "shift_x" in desc else 0
-        self.shift_y = desc["shift_y"] if "shift_y" in desc else 0
-        self.shift_z = desc["shift_z"] if "shift_z" in desc else 0
+        self.shift_x = desc["shift_x"] if "shift_x" in desc else 0.0
+        self.shift_y = desc["shift_y"] if "shift_y" in desc else 0.0
+        self.shift_z = desc["shift_z"] if "shift_z" in desc else 0.0
+
+        self.tilt_x = desc["tilt_x"] if "tilt_x" in desc else 0.0
+        self.tilt_y = desc["tilt_y"] if "tilt_y" in desc else 0.0
+        self.tilt_z = desc["tilt_z"] if "tilt_z" in desc else 0.0
 
     def get_ref_motif(self):
         return self.ref.split(".")[0]
