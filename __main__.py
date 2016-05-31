@@ -37,6 +37,7 @@ if __name__ == '__main__':
 
     try:
         # READING INPUT DATA + MAKE OUTPUT DIR
+        print "Setting up the output folder and the initial configuration"
         json_data = topoIO.load_json(options.input)
         if not os.path.isdir(json_data["config"]["name"]):
             os.mkdir(json_data["config"]["name"])
@@ -44,16 +45,19 @@ if __name__ == '__main__':
         utils.form_nomenclator(json_data)  # Set standard ID's for each STATUS
 
         # PROCESS PDB -> STATUS = 1 (if there are motifs to read)
+        print "Reading the motifs (if any)"
         topoIO.read_pdbs(json_data)
         topoIO.print_json(json_data, options.chkpoint)
         if options.show: raw_input("READ PDB. Press for next...")
 
         # PROCESS MOTIFS -> STATUS = 2 (if there are motifs to read)
+        print "Processing the motifs (if any)"
         utils.process_motifs(json_data, options)
         topoIO.print_json(json_data, options.chkpoint)
         if options.show: raw_input("PROCESS MOTIFS. Press for next...")
 
         # FORM COMBINATORIAL -> STATUS = 3
+        print "Building and evaluating convinations"
         FormFabric().build(json_data, options)
         topoIO.print_json(json_data, options.chkpoint)
         htmlfile = os.path.join(json_data["config"]["name"], "combinations.html")
@@ -61,6 +65,7 @@ if __name__ == '__main__':
         if options.show: raw_input("EVALUATE COMBINATIONS. Press for next...")
 
         # PREPARE ALL FORMS -> STATUS = 4
+        print "Preparing and printing the final outputs"
         utils.prepare_forms(json_data, options)
         topoIO.print_json(json_data, options.chkpoint)
         if options.show: raw_input("AVAILABLE FORMS PREPARED FOR FFL. Press for next...")

@@ -5,7 +5,7 @@
 # @Last Modified time: 2016-05-02 23:44:18
 
 import copy
-
+import numpy as np
 
 class FakeForm(object):
     """docstring for FakeForm"""
@@ -98,33 +98,49 @@ class FakeForm(object):
             if up == 1:  dU.append((self.sslist[x], self.sslist[x + 1]))
             if up == -1: dD.append((self.sslist[x], self.sslist[x + 1]))
             up *= -1
-
         if len(dU) > 1:
             for x in dU:
                 for y in dU:
-                    if x != y and self._intersection(x, y, "up"):  return False
+                    if x < y and self._intersection(x, y, "up"):  return False
         if len(dD) > 1:
             for x in dD:
                 for y in dD:
-                    if x != y and self._intersection(x, y, "down"): return False
+                    if x < y and self._intersection(x, y, "down"): return False
         return True
 
     def _intersection(self, s1, s2, key):
-        left   = max(
-            min(s1[0].get_x(key), s1[1].get_x(key)),
-            min(s2[0].get_x(key), s2[1].get_x(key))
-        )
-        right  = min(
-            max(s1[0].get_x(key), s1[1].get_x(key)),
-            max(s2[0].get_x(key), s2[1].get_x(key))
-        )
-        top    = max(
-            min(s1[0].get_z(key), s1[1].get_z(key)),
-            min(s2[0].get_z(key), s2[1].get_z(key))
-        )
-        bottom = min(
-            max(s1[0].get_z(key), s1[1].get_z(key)),
-            max(s2[0].get_z(key), s2[1].get_z(key))
-        )
-        if bottom > top and right > left: return True
-        return False
+        # http://stackoverflow.com/a/20679579/2806632 (first half of function)
+        def line(p1, p2):
+            A = (p1[1] - p2[1])
+            B = (p2[0] - p1[0])
+            C = (p1[0] * p2[1] - p2[0] * p1[1])
+            return A, B, -C
+
+        def intersection(L1, L2):
+            D  = L1[0] * L2[1] - L1[1] * L2[0]
+            Dx = L1[2] * L2[1] - L1[1] * L2[2]
+            Dy = L1[0] * L2[2] - L1[2] * L2[0]
+            if D != 0:
+                x = Dx / D
+                y = Dy / D
+                return x, y
+            else:
+                return False
+
+        # http://stackoverflow.com/a/328193/2806632 (second half)
+        def distance(a, b):
+            return np.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+
+        def is_between(a, c, b):
+            return np.isclose(distance(a, c) + distance(c, b), distance(a, b))
+
+        L1 = line([s1[0].get_x(key), s1[0].get_z(key)], [s1[1].get_x(key), s1[1].get_z(key)])
+        L2 = line([s2[0].get_x(key), s2[0].get_z(key)], [s2[1].get_x(key), s2[1].get_z(key)])
+        R  = intersection(L1, L2)
+        if not R: return False
+
+        between1 = is_between([s1[0].get_x(key), s1[0].get_z(key)], R, [s1[1].get_x(key), s1[1].get_z(key)])
+        between2 = is_between([s2[0].get_x(key), s2[0].get_z(key)], R, [s2[1].get_x(key), s2[1].get_z(key)])
+
+        if between1 and between2: return True
+        else:                     return False
