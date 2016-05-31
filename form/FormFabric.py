@@ -25,7 +25,7 @@ class FormFabric(object):
         _DEF_X_DISTANCE = {"H": data["config"]["default_x_h"] if "default_x_h" in data["config"] else 11.,
                            "E": data["config"]["default_x_e"] if "default_x_e" in data["config"] else 5.}
 
-        layers     = []
+        layers = []
         for x in range(len(data["layers"])):
             layers.append([])
             width = 0
@@ -88,17 +88,25 @@ class FormFabric(object):
 
     def _create_graph( self, layers ):
         G = nx.Graph()
-        for x in layers:
-            for sse1 in x:
-                for sse2 in x:
-                    if sse1 < sse2:
-                        G.add_edge( sse1 , sse2, object=SS )
         for lyr1 in range(len(layers)):
             for lyr2 in range(len(layers)):
-                if abs(lyr1 - lyr2) == 1:  # Only consecutive layers
-                    for sse1 in layers[lyr1]:
-                        for sse2 in layers[lyr2]:
-                            G.add_edge( sse1 , sse2, object=SS )
+                if abs(lyr1 - lyr2) <= 1:  # Only consecutive layers
+                    for col1 in range(len(layers[lyr1])):
+                        for col2 in range(len(layers[lyr2])):
+                            if abs(col1 - col2) <= 1:  # Only consecutive columns
+                                G.add_edge(layers[lyr1][col1],
+                                           layers[lyr2][col2], object = SS)
+        # for x in layers:
+        #     for sse1 in x:
+        #         for sse2 in x:
+        #             if sse1 < sse2:
+        #                 G.add_edge( sse1 , sse2, object=SS )
+        # for lyr1 in range(len(layers)):
+        #     for lyr2 in range(len(layers)):
+        #         if abs(lyr1 - lyr2) == 1:  # Only consecutive layers
+        #             for sse1 in layers[lyr1]:
+        #                 for sse2 in layers[lyr2]:
+        #                     G.add_edge( sse1 , sse2, object=SS )
         return G
 
     def _find_paths( self, G, u, n ):
