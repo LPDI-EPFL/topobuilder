@@ -71,6 +71,8 @@ class Form(object):
         self.seq_str.append(("G", "C", "X"))
         self.inits.append(i)
         for x in range(len(self.sslist) - 1):
+            if self.sslist[x].sequence is None:
+                self.sslist[x].create_stat_sequence()
             for xx in self.sslist[x].sequence:
                 self.seq_str.append((xx, self.sslist[x].get_type(), "S"))
             i += len(self.sslist[x].sequence)
@@ -80,6 +82,8 @@ class Form(object):
             for yy in range(d):
                 self.seq_str.append(("G", "C", "X"))
             self.inits.append(i)
+        if self.sslist[-1].sequence is None:
+                self.sslist[-1].create_stat_sequence()
         for xx in self.sslist[-1].sequence:
             self.seq_str.append((xx, self.sslist[-1].get_type(), "S"))
         self.seq_str.append(("G", "C", "X"))

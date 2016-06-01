@@ -22,7 +22,7 @@ class VirtualStructure(object):
              "G": "GLY", "H": "HIS", "L": "LEU", "R": "ARG", "W": "TRP",
              "A": "ALA", "V": "VAL", "E": "GLU", "Y": "TYR", "M": "MET"}
     _A321 = {v: k for k, v in _A123.items()}
-    _AA_STAT = {}
+    _AA_STAT = [("G", 1.00)]
     _TYPE = "C"
 
     def __init__(self, residues, centre = [0., 0., 0.], chain = "A"):

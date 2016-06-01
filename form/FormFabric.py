@@ -4,11 +4,15 @@
 # @Last Modified by:   bonet
 # @Last Modified time: 2016-05-02 16:58:11
 import networkx as nx
+import numpy as np
 import copy
+import sys
+import os
 
 from ..virtual.VirtualMaker import VirtualMaker
 
 from .FakeForm import FakeForm
+from .Form import Form
 from .VisualForms import VisualForms
 from .SecondaryStructure import SecondaryStructure as SS
 
@@ -24,8 +28,11 @@ class FormFabric(object):
         _DEF_Z_DISTANCE = data["config"]["default_z"] if "default_z" in data["config"] else 11.
         _DEF_X_DISTANCE = {"H": data["config"]["default_x_h"] if "default_x_h" in data["config"] else 11.,
                            "E": data["config"]["default_x_e"] if "default_x_e" in data["config"] else 5.}
+        _LINK_DISTANCE  = (np.sqrt(2 * (_DEF_Z_DISTANCE * _DEF_Z_DISTANCE))) + 2.0
+        _LINK_DISTANCE  = data["config"]["link_dist"] if "link_dist" in data["config"] else _LINK_DISTANCE
 
-        layers = []
+        layers    = []
+        shapelsit = []
         for x in range(len(data["layers"])):
             layers.append([])
             width = 0
@@ -61,55 +68,95 @@ class FormFabric(object):
                 width = vs.centre[0]
                 secstr.add_structure(vs)
                 layers[-1].append(secstr)
+                shapelsit.append(vs)
 
-        forms = self._create_forms(layers)
+        if options.shape:
+            shapeForm = Form("shapesketch", shapelsit)
+            shapeForm.prepare_coords()
+            with open(os.path.join(options.outdir, "shapesketch.pdb"), "w") as fd:
+                fd.write(shapeForm.to_pdb())
+            sys.exit(1)
+
+        print "\tevaluating possible combinations"
+        forms = _create_forms(layers, _LINK_DISTANCE)
+        print "\tforms created:", str(len(forms))
 
         # EVALUATE AND SAVE FORMS FOR CHECKPOINT
         data.setdefault("forms", [])
-        for f in forms:
+        okforms = []
+        for _, f in enumerate(forms):
             f.evaluate()
-            data["forms"].append(f.to_json())
+            if f.do: okforms.append(f)
+            if f.do or not options.hurry:
+                data["forms"].append(f.to_json())
+            if _ > 0 and _ % 100 == 0:
+                print "\t\t{0} out of {1} evaluated ({2} ok)".format(_, len(forms), len(okforms))
+        print "\t\t{0} evaluated ({1} ok)".format(len(forms), len(okforms))
 
         # GRAPHIC REPRESENTATIONS
-        vs = VisualForms(forms)
+        vs = VisualForms(okforms if options.hurry else forms)
         vs.make_svg(data)
 
         data["config"]["status"] = 3
 
-    def _create_forms( self, layers ):
-        G = self._create_graph(layers)
-        path_length = len( G.nodes() ) - 1
-        forms = []
-        for node in G.nodes():
-            for path in self._find_paths(G, node, path_length):
-                f = FakeForm(copy.deepcopy(path))
-                forms.append(f)
-        return forms
+def _create_forms( layers, distance ):
+    G = _create_graph(layers, distance)
+    # path_length = len( G.nodes() ) - 1
+    forms = []
 
-    def _create_graph( self, layers ):
-        G = nx.Graph()
-        for lyr1 in range(len(layers)):
-            for lyr2 in range(len(layers)):
-                if abs(lyr1 - lyr2) <= 1:  # Only consecutive layers
-                    for col1 in range(len(layers[lyr1])):
-                        for col2 in range(len(layers[lyr2])):
-                            if abs(col1 - col2) <= 1:  # Only consecutive columns
-                                G.add_edge(layers[lyr1][col1],
-                                           layers[lyr2][col2], object = SS)
-        # for x in layers:
-        #     for sse1 in x:
-        #         for sse2 in x:
-        #             if sse1 < sse2:
-        #                 G.add_edge( sse1 , sse2, object=SS )
-        # for lyr1 in range(len(layers)):
-        #     for lyr2 in range(len(layers)):
-        #         if abs(lyr1 - lyr2) == 1:  # Only consecutive layers
-        #             for sse1 in layers[lyr1]:
-        #                 for sse2 in layers[lyr2]:
-        #                     G.add_edge( sse1 , sse2, object=SS )
-        return G
+    for _1, n1 in enumerate(G.nodes()):
+        for _2, n2 in enumerate(G.nodes()):
+            if _1 < _2:
+                forms.extend(_search_paths(G, n1, n2))
+                # print "\t\t", n1.desc, "-->", n2.desc
+                # for path in nx.all_simple_paths(G, n1, n2):
+                #     if len(path) == nx.number_of_nodes(G):
+                #         f = FakeForm(copy.deepcopy(path))
+                #         forms.append(f)
+                #         path.reverse()
+                #         f = FakeForm(copy.deepcopy(path))
+                #         forms.append(f)
 
-    def _find_paths( self, G, u, n ):
-        if n == 0: return [[u]]
-        paths = [[u] + path for neighbor in G.neighbors(u) for path in self._find_paths(G, neighbor, n - 1) if u not in path]
-        return paths
+    # for node in G.nodes():
+    #     print node.desc
+    #     for path in _find_paths(G, node, path_length):
+    #         f = FakeForm(copy.deepcopy(path))
+    #         forms.append(f)
+    return forms
+
+def _search_paths(G, n1, n2):
+    forms = []
+    print "\t\t", n1.desc, "-->", n2.desc
+    for path in nx.all_simple_paths(G, n1, n2):
+        if len(path) == nx.number_of_nodes(G):
+            f = FakeForm(copy.deepcopy(path))
+            forms.append(f)
+            path.reverse()
+            f = FakeForm(copy.deepcopy(path))
+            forms.append(f)
+    print "\t\t\t", len(forms), "folds obtained"
+    return forms
+
+def _create_graph( layers, distance ):
+    G = nx.Graph()
+    for lyr1 in range(len(layers)):
+        for lyr2 in range(len(layers)):
+            if abs(lyr1 - lyr2) <= 1:  # Only consecutive layers
+                for col1 in range(len(layers[lyr1])):
+                    for col2 in range(len(layers[lyr2])):
+                        if abs(col1 - col2) <= 1:  # Only consecutive columns
+                            G.add_edge(layers[lyr1][col1],
+                                       layers[lyr2][col2], object = SS)
+    for lyr1 in layers:
+        for lyr2 in layers:
+            for sse1 in lyr1:
+                for sse2 in lyr2:
+                    if sse1 != sse2 and sse1.twoD_distance(sse2) <= distance:
+                        G.add_edge(sse1, sse2)
+
+    return G
+
+def _find_paths( G, u, n ):
+    if n == 0: return [[u]]
+    paths = [[u] + path for neighbor in G.neighbors(u) for path in _find_paths(G, neighbor, n - 1) if u not in path]
+    return paths

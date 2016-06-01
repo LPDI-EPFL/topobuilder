@@ -53,6 +53,7 @@ class VisualForms(object):
     def make_svg(self, data):
         layers = data["layers"]
         _PROPORTION = 10
+        _SHIFT_PROP = _PROPORTION / 1.5
         for f in self.forms:
             structures = [None] * len(f.id.split("_"))
             linkers    = []
@@ -66,25 +67,26 @@ class VisualForms(object):
                     name = f.id + "__" + s["id"]
                     if s["type"] == "H":
                         color  = "cornflowerblue" if "ref" not in s else "gainsboro"
-                        shape = Circle( center = (s["shift_x"] * _PROPORTION / 2, s["shift_z"] * _PROPORTION / 2),
+                        shape = Circle( center = (s["shift_x"] * _SHIFT_PROP, s["shift_z"] * _SHIFT_PROP),
                                         r = 2.3 * _PROPORTION, id = name,
                                         fill = color, stroke="black",
                                         stroke_width = "2")
                     elif s["type"] == "E":
+                        color  = "indianred" if "ref" not in s else "salmon"
                         rotate = f.get_ss_by_id(s["id"]).struc.goes_down()
-                        shape = Triangle(center = (s["shift_x"] * _PROPORTION / 2, s["shift_z"] * _PROPORTION / 2),
+                        shape = Triangle(center = (s["shift_x"] * _SHIFT_PROP, s["shift_z"] * _SHIFT_PROP),
                                          rc = 2.3 * _PROPORTION, id = name, fill=color,
                                          stroke = "black", stroke_width = "2",
                                          rotate = rotate)
                     else:
                         color  = "darkgreen" if "ref" not in s else "lightgreen"
-                        shape = Cross(center = (s["shift_x"] * _PROPORTION / 2, s["shift_z"] * _PROPORTION / 2), r = 2.3 * _PROPORTION,
+                        shape = Cross(center = (s["shift_x"] * _SHIFT_PROP, s["shift_z"] * _SHIFT_PROP), r = 2.3 * _PROPORTION,
                                       fill=color, stroke="black", stroke_width = "2",
                                       id = name)
                     structures[order[s["id"]]] = shape
-                    centers[s["id"]] = [s["shift_x"] * _PROPORTION / 2, s["shift_z"] * _PROPORTION / 2]
-                    if s["shift_x"] * _PROPORTION / 2 > maxW: maxW = s["shift_x"] * _PROPORTION / 2
-                    if s["shift_z"] * _PROPORTION / 2 > maxH: maxH = s["shift_z"] * _PROPORTION / 2
+                    centers[s["id"]] = [s["shift_x"] * _SHIFT_PROP, s["shift_z"] * _SHIFT_PROP]
+                    if s["shift_x"] * _SHIFT_PROP > maxW: maxW = s["shift_x"] * _SHIFT_PROP
+                    if s["shift_z"] * _SHIFT_PROP > maxH: maxH = s["shift_z"] * _SHIFT_PROP
 
             for cx, x in enumerate(f.id.split("_")):
                 if cx == 0 or cx == len(f.id.split("_")) - 1:

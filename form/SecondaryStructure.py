@@ -60,6 +60,11 @@ class SecondaryStructure( object ):
     def get_z(self, key):
         return 0.0 if np.isclose(self.get_xyz(key)[2], 0.0) else self.get_xyz(key)[2]
 
+    def twoD_distance( self, other ):
+        a = np.array([self.struc.centre[0], self.struc.centre[2]])
+        b = np.array([other.struc.centre[0], other.struc.centre[2]])
+        return np.linalg.norm(a - b)
+
     def __eq__( self, other ):
         return self.__hash__() == other.__hash__()
 
