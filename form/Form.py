@@ -38,8 +38,9 @@ class Form(object):
         for x in range(len(self.sslist)):
             y = self.sslist[x]
             p = self.inits[x]
+            inner_range = 1 if y.get_type() == 'C' else (2 if y.get_type() == 'E' else 5)
             for r1 in range(len(y.atoms)):
-                for r2 in range(r1 + 5, len(y.atoms)):
+                for r2 in range(r1 + inner_range, len(y.atoms)):
                     d = scipy.spatial.distance.euclidean(y.atoms[r1], y.atoms[r2])
                     self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
 
@@ -95,13 +96,14 @@ class Form(object):
         text = []
         text.append("# PSIPRED VFORMAT (PSIPRED V2.6 by David Jones)\n")
         sse = [x[1] for x in self.seq_str]
+        seq = [x[0] for x in self.seq_str]
         for i in range(len(sse)):
             pH, pE, pC = 0, 0, 0
             if sse[i] == 'C': pC = 1
             else:
                 edge = False
-                if sse[i] != sse[i - 1] or sse[i] != sse[i - 2]: edge = True
-                if sse[i] != sse[i + 1] or sse[i] != sse[i + 2]: edge = True
+                if sse[i] != sse[i - 1] or (sse[i] != sse[i - 2] and sse[i] == 'E'): edge = True
+                if sse[i] != sse[i + 1] or (sse[i] != sse[i + 2] and sse[i] == 'E'): edge = True
                 if edge:
                     pC = 0.3
                     if sse[i] == 'E': pE = 0.7
@@ -110,7 +112,7 @@ class Form(object):
                     if sse[i] == 'E': pE = 1
                     else:             pH = 1
 
-            line = "{0:>4} {1} {2}   {3:0.3f}  {4:0.3f}  {5:0.3f}".format(i + 1, 'A', sse[i], pC, pH, pE)
+            line = "{0:>4} {1} {2}   {3:0.3f}  {4:0.3f}  {5:0.3f}".format(i + 1, seq[i], sse[i], pC, pH, pE)
             text.append(line)
         return '\n'.join(text)
 
@@ -119,6 +121,12 @@ class Form(object):
         for x in range(len(self.sslist)):
             data.append(self.sslist[x].atom_points(atom = self.inits[x]))
         return "\n".join(data)
+
+    def __contains__(self, query):
+        for x in self.sslist:
+            if x.get_type().upper() == query.upper():
+                return True
+        return False
 
     # def to_command(self, ori, chain, targetl, templtl, fastaf, ssefil, constrfl, commfl):
 

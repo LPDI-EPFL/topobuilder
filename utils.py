@@ -75,7 +75,7 @@ def prepare_forms(data, options):
                                    os.path.relpath(ssF, wdir),
                                    os.path.relpath(loopF, wdir),
                                    os.path.relpath(cnstF, wdir),
-                                   2, 100)
+                                   100, 2 if "H" in f else 0, 2 if "E" in f else 0)
             with open(os.path.join(wdir, "build.commands"), "w") as fd:
                 fd.write(fflcom)
                 if len(binders) > 0:

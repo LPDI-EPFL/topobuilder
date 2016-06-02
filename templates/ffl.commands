@@ -9,10 +9,13 @@
 -loops:loop_file {6}
 -fold_from_loops:scaffold:nopose
 -fold_from_loops:scaffold:cst_file {7}
--fold_from_loops:hb_srbb {8}
 -fold_from_loops:native_ca_cst
 -in:ignore_unrecognized_res
 -run:intermediate_structures
--out:nstruct {9}
+-out:nstruct {8}
+-fold_from_loops:score:hb_srbb {9}
+-fold_from_loops:score:hb_lrbb {10}
+-fold_from_loops:score:rsigma {10}
+-fold_from_loops:score:ss_pair {10}
 -out:file:silent_struct_type binary
 -out:overwrite
