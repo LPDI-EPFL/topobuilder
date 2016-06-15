@@ -31,7 +31,8 @@ def prepare_forms(data, options):
                                 structures[x["id"]].add_3AAseq(z["sequence"])
             else:
                 structures[x["id"]].create_stat_sequence()
-                structures[x["id"]].tilt_degrees(x["tilt_x"], x["tilt_y"], x["tilt_z"])
+                structures[x["id"]].tilt_y_degrees(x["tilt_y"])
+                structures[x["id"]].tilt_degrees(x["tilt_x"], 0, x["tilt_z"])
             structures[x["id"]].shift(x["shift_x"], x["shift_y"], x["shift_z"])
             structures[x["id"]].remove_movement_memory()
 

@@ -62,7 +62,8 @@ class FormFabric(object):
                                     break
                     vs.atoms = ref["coordinates"]
                 else:
-                    vs.tilt_degrees(ss["tilt_x"], ss["tilt_y"], ss["tilt_z"])
+                    vs.tilt_y_degrees(ss["tilt_y"])
+                    vs.tilt_degrees(ss["tilt_x"], 0, ss["tilt_z"])
                 xdist = _DEF_X_DISTANCE["E"] if vs.get_type() == "E" else _DEF_X_DISTANCE["H"]
                 vs.shift(ss["shift_x"], ss["shift_y"], ss["shift_z"])
                 width = vs.centre[0]
