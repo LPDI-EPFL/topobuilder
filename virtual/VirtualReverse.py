@@ -148,8 +148,8 @@ class VirtualReverse(VS):
 
     # SPLIT
     def split(self, segments, correlate_center = False, translate_center = False):
-        if len(segments) == 1:
-            return copy.deepcopy(self)
+        # if len(segments) == 1:
+        #     return copy.deepcopy(self)
         newobj = []
         i = 0
         for sgm in segments:
