@@ -6,10 +6,10 @@
 <script type='text/javascript'>
 // override the default options with something less restrictive.
 var options = {
-  width: 600,
-  height: 600,
+  width: 700,
+  height: 450,
   antialias: true,
-  quality : 'medium'
+  quality : 'high'
 };
 // insert the viewer under the Dom element with id 'gl'.
 var viewer = pv.Viewer(document.getElementById('viewer'), options);
@@ -19,7 +19,7 @@ function loadMethylTransferase() {
   pv.io.fetchPdb('shapesketch.pdb', function(structure) {
       // display the protein as cartoon, coloring the secondary structure
       // elements in a rainbow gradient.
-      viewer.spheres('protein', structure, { color : color.ssSuccession() });
+      viewer.spheres('protein', structure.select({chain: 'A'}));
       // there are two ligands in the structure, the co-factor S-adenosyl
       // homocysteine and the inhibitor ribavirin-5' triphosphate. They have
       // the three-letter codes SAH and RVP, respectively. Let's display them

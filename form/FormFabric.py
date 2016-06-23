@@ -16,7 +16,6 @@ from .Form import Form
 from .VisualForms import VisualForms
 from .SecondaryStructure import SecondaryStructure as SS
 
-
 class FormFabric(object):
     """docstring for FormFabric"""
     def __init__(self):
