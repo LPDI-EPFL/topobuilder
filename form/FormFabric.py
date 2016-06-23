@@ -71,12 +71,11 @@ class FormFabric(object):
                 layers[-1].append(secstr)
                 shapelsit.append(vs)
 
-        if options.shape:
-            shapeForm = Form("shapesketch", shapelsit)
-            shapeForm.prepare_coords()
-            with open(os.path.join(options.outdir, "shapesketch.pdb"), "w") as fd:
-                fd.write(shapeForm.to_pdb())
-            sys.exit(1)
+        shapeForm = Form("shapesketch", shapelsit)
+        shapeForm.prepare_coords()
+        with open(os.path.join(options.outdir, "shapesketch.pdb"), "w") as fd:
+            fd.write(shapeForm.to_pdb())
+        if options.shape: sys.exit(1)
 
         print "\tevaluating possible combinations"
         forms = _create_forms(layers, _LINK_DISTANCE)

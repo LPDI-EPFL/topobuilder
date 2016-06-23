@@ -16,13 +16,16 @@
 <div class="container-fluid">
   <div class="row" style="z-index: 1000; background-color: white; text-align: center; padding-top: 15px; padding-bottom: 15px; position: fixed; top: 0; left: 0; width: 100%;">
     <div class="btn-group" role="group">
-      <button type="button" class="btn" ng-init="{isEdges = false}" ng-class="isEdges ? 'btn-danger' : 'btn-primary'" ng-click="isEdges=!isEdges">Edges</button>
-      <button type="button" class="btn" ng-init="{isDir = false}" ng-class="isDir ? 'btn-danger' : 'btn-primary'" ng-click="isDir=!isDir">Directions</button>
-      <button type="button" class="btn" ng-init="{isInt = false}" ng-class="isInt ? 'btn-danger' : 'btn-primary'" ng-click="isInt=!isInt">Intersections</button>
+      <button type="button" class="btn" ng-init="isEdges = false" ng-class="isEdges ? 'btn-danger' : 'btn-primary'" ng-click="isEdges=!isEdges">Edges</button>
+      <button type="button" class="btn" ng-init="isDir = false" ng-class="isDir ? 'btn-danger' : 'btn-primary'" ng-click="isDir=!isDir">Directions</button>
+      <button type="button" class="btn" ng-init="isInt = false" ng-class="isInt ? 'btn-danger' : 'btn-primary'" ng-click="isInt=!isInt">Intersections</button>
     </div>
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-default" ng-click="isEdges=true; isDir=true; isInt=true">Filter All</button>
       <button type="button" class="btn btn-default" ng-click="isEdges=false; isDir=false; isInt=false">Show All</button>
     </div>
   </div>
-  <div class="row" style="text-align: center; margin-top: 64px; margin-bottom: 15px;">
+  <div class="row" style="text-align: center; margin-top: 64px; padding-top: 15px; padding-bottom: 15px; width: 100%;">
+    <div id=viewer></div>
+  </div>
+  <div class="row" style="text-align: center; margin-bottom: 15px;">

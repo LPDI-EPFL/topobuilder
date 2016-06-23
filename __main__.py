@@ -6,6 +6,7 @@
 
 import argparse
 import os
+import shutil
 import getpass
 
 import topoIO
@@ -66,6 +67,9 @@ if __name__ == '__main__':
         FormFabric().build(json_data, options)
         topoIO.print_json(json_data, options.chkpoint)
         htmlfile = os.path.join(json_data["config"]["name"], "combinations.html")
+        tpl = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
+        shutil.copyfile(os.path.join(tpl, "bio-pv.min.js"),
+                        os.path.join(json_data["config"]["name"], "bio-pv.min.js"))
         utils.make_html(json_data, htmlfile)
         if options.show: raw_input("EVALUATE COMBINATIONS. Press for next...")
 
