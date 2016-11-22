@@ -6,14 +6,18 @@
 
 import argparse
 import os
+import sys
 import shutil
 import getpass
+from multiprocessing import Pool
+import signal
 
 import topoIO
 import utils
 
 from .form.FormFabric import FormFabric
-
+from .interfaces.frontend import serve as front_serve
+from .interfaces.backend import serve as back_serve
 
 def get_options(*args, **kwds):
 
@@ -29,17 +33,16 @@ def get_options(*args, **kwds):
     parser.add_argument('-show',  dest='show',  action='store_true',
                         help='Show mode (requires keypress)', default=False)
 
+    parser.add_argument('-X', '-interactive', dest='interactive', action='store_true',
+                        help='Open in interactive mode', default=False)
+
     options = parser.parse_args()
-    options.__dict__["chkpoint"] = options.input.replace(".json", "_chk.json")
+    if not options.interactive:
+        options.__dict__["chkpoint"] = options.input.replace(".json", "_chk.json")
 
     return options
 
-
-if __name__ == '__main__':
-
-    # GETTING USER OPTIONS
-    options = get_options()
-
+def non_interactive(options):
     try:
         # READING INPUT DATA + MAKE OUTPUT DIR
         print "Setting up the output folder and the initial configuration"
@@ -81,3 +84,32 @@ if __name__ == '__main__':
 
     except KeyboardInterrupt:
         print "Stopped by the user"
+
+def backend(options):
+    print "there"
+
+def interactive(options):
+    def init_worker():
+        def sig_int(signal_num, frame):
+            print 'signal: %s' % signal_num
+        signal.signal(signal.SIGINT, sig_int)
+
+    pool = Pool(2, init_worker)
+    try:
+        front = pool.apply_async(front_serve, [options])
+        back  = pool.apply_async(back_serve, [options])
+        front.get(sys.maxsize)
+        back.get(sys.maxsize)
+    except KeyboardInterrupt:
+        pool.terminate()
+        pool.join()
+        print "Stopped by the user"
+
+
+if __name__ == '__main__':
+
+    # GETTING USER OPTIONS
+    options = get_options()
+
+    if not options.interactive: non_interactive(options)
+    else:                       interactive(options)

@@ -15,7 +15,7 @@ DEFAULT_MODULE = 20
 
 class VirtualReverse(VS):
     """docstring for VirtualReverse"""
-    def __init__(self, name, coordinates, coreguide, lookZ, chain = "A"):
+    def __init__(self, name, coordinates, coreguide, lookZ=1, chain = "A"):
         coordinates = np.array(coordinates, dtype = np.float64)
         residues = len(coordinates)
         centre = np.mean(coordinates, axis = 0, dtype = np.float64).tolist()

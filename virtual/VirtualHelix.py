@@ -48,6 +48,9 @@ class VirtualHelixAlpha(VS):
     def grow_cterm(self, residues):   raise NotImplementedError
     def shrink_cterm(self, residues): raise NotImplementedError
 
+    def secondary_structure_def(self):
+        pass
+
     def _tilt_y_point_from_centre(self, centre, point, angle):
         tmp_point = point[0] - centre[0] , point[2] - centre[2]
         tmp_point = ( tmp_point[0] * np.cos(angle) - tmp_point[1] * np.sin(angle),

@@ -211,6 +211,9 @@ class VirtualStructure(object):
         if points: data.append(self.guide_points(atom + 3))
         return "\n".join(data)
 
+    def secondary_structure_def(self):
+        pass
+
     def atom_points(self, atom = 1, seq = None):
         count = 0
         data  = []

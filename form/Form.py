@@ -118,6 +118,7 @@ class Form(object):
 
     def to_pdb(self):
         data = []
+        # ssdef = []
         for x in range(len(self.sslist)):
             data.append(self.sslist[x].atom_points(atom = self.inits[x]))
         return "\n".join(data)

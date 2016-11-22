@@ -1,0 +1,8 @@
+{
+    "mappings": [
+        {
+            "src": "sass",
+            "dest": "./"
+        }
+    ]
+}

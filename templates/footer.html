@@ -19,7 +19,8 @@ function loadMethylTransferase() {
   pv.io.fetchPdb('shapesketch.pdb', function(structure) {
       // display the protein as cartoon, coloring the secondary structure
       // elements in a rainbow gradient.
-      viewer.spheres('protein', structure.select({chain: 'A'}));
+      viewer.spheres('proteinsphere', structure.select({chain: 'A'}));
+      // viewer.trace('proteintrace', structure.select({chain: 'A'}));
       // there are two ligands in the structure, the co-factor S-adenosyl
       // homocysteine and the inhibitor ribavirin-5' triphosphate. They have
       // the three-letter codes SAH and RVP, respectively. Let's display them
