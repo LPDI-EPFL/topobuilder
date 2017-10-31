@@ -22,7 +22,7 @@ class VirtualBeta(VS):
     #_RADIUS       = {"N": 0.211, "CA": 1.06, "C": -0.305 , "O": -0.171, "H": 0.068}
     #_SHIFT        = {"N": 0.391, "CA": 0., "C": -0.525 , "O": -1.738, "H": 1.354}
 
-    _ATOM_CA_DIST = {"N": 2.6, "CA": 3.8, "C": 1.8 , "O": 1.9, "H": 2.48}
+    _ATOM_CA_DIST = {"N": 2.6, "CA": 3.8, "C": 1.8 , "O": 2., "H": 2.5}
     _RADIUS       = {"N": 0.25, "CA": 1.06, "C": -0.305 , "O": -0.171, "H": 0.068}
     _SHIFT        = {"N": 0.395, "CA": 0., "C": -0.510 , "O": -1.75, "H": 1.35}
 
@@ -63,8 +63,9 @@ class VirtualBeta(VS):
 if __name__ == '__main__':
     y = VirtualBeta(12, [0., 0., 0.])
     print(y.atom_points(1, seq="SSQEALHVTERK"))
-    y.shift(x=4.9)
-    print(y.atom_points(13, seq="SSQEALHVTERK"))
-    y.shift(x=4.9)
+    y.shift(x=4.9, y=0.)
     y.invert_direction()
+    y.flip()
+    print(y.atom_points(12, seq="SSQEALHVTERK"))
+    y.shift(x=4.9, y=0., z=0.)
     print(y.atom_points(25, seq="SSQEALHVTERK"))

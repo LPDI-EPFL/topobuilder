@@ -142,6 +142,22 @@ class VirtualStructure(object):
                 for atom in residue_atoms:
                     atom[1] += t
 
+    def flip(self):
+        if len(self.atoms):
+            for residue_atoms in self.atoms:
+                for atom in residue_atoms:
+                    atom[1][0] *= -1
+                    #atom[1][2] *= -1
+        #if np.allclose(self.Rapplied, np.eye(3)):
+            #self.tilt_degrees(y_angle = 180, store = False)
+        #else:
+            #euler1 = mat2euler(self.Rapplied)
+            #euler2 = mat2euler(self.Rapplied.transpose())
+            #self.tilt_radiants(euler2[0], euler2[1], euler2[2])
+            #self.tilt_degrees(y_angle = 180, store = False)
+            #self.tilt_radiants(euler1[0], euler1[1], euler1[2])
+        #self.is_inverted = not self.is_inverted
+
     def shift_to_origin(self):
         anti = np.copy(self.centre) if not self.in_origin() else np.array([0., 0., 0.])
         self.shift(-anti)
