@@ -45,6 +45,7 @@ class VirtualStructure(object):
             self.points.append(np.copy(self.edges[0]) - np.array([0, self._MAX_AA_DIST * x, 0]) )
         self.residue_atoms = []
         self.atoms    = []
+        self.atom = None
         self.Rapplied = np.eye(3)
         self.is_inverted = False
         self.spinned     = 0
@@ -105,7 +106,11 @@ class VirtualStructure(object):
     def apply_matrix(self, R):
         if len(self.edges):  self.edges  = np.dot(self.edges,  R)
         if len(self.points): self.points = np.dot(self.points, R)
-        if len(self.atoms):  self.atoms  = np.dot(self.atoms,  R)
+        #if len(self.atoms):  self.atoms  = np.dot(self.atoms,  R)
+        if len(self.atoms):
+            for residue_atoms in self.atoms:
+                for atom in residue_atoms:
+                    atom[1] = np.dot(atom[1],  R)
 
     # ROTATE ON AXIS
     def spin_radians(self, angle): self.spin_degrees(np.degrees(angle))
@@ -126,12 +131,16 @@ class VirtualStructure(object):
     def shift_y(self, y): self.shift(0, y, 0)
     def shift_z(self, z): self.shift(0, 0, z)
 
-    def shift(self, x = 0, y = 0, z = 0):
+    def shift(self, x = 0., y = 0., z = 0.):
         t = np.array(x) if isinstance(x, Iterable) else np.array([x, y, z])
         self.centre += t
         self.edges  += t
         self.points += t
-        if len(self.atoms): self.atoms += t
+        #if len(self.atoms): self.atoms += t
+        if len(self.atoms):
+            for residue_atoms in self.atoms:
+                for atom in residue_atoms:
+                    atom[1] += t
 
     def shift_to_origin(self):
         anti = np.copy(self.centre) if not self.in_origin() else np.array([0., 0., 0.])
