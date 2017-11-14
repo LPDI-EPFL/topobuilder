@@ -22,7 +22,7 @@ class VirtualBeta(VS):
     #_RADIUS       = {"N": 0.211, "CA": 1.06, "C": -0.305 , "O": -0.171, "H": 0.068}
     #_SHIFT        = {"N": 0.391, "CA": 0., "C": -0.525 , "O": -1.738, "H": 1.354}
 
-    _ATOM_CA_DIST = {"N": 2.6, "CA": 3.8, "C": 1.8 , "O": 2., "H": 2.5}
+    _ATOM_CA_DIST = {"N": 2.6, "CA": 3.8, "C": 1.8 , "O": 1.9, "H": 2.5}
     _RADIUS       = {"N": 0.25, "CA": 1.06, "C": -0.305 , "O": -0.171, "H": 0.068}
     _SHIFT        = {"N": 0.395, "CA": 0., "C": -0.510 , "O": -1.75, "H": 1.35}
 
@@ -51,21 +51,26 @@ class VirtualBeta(VS):
     def __init__(self, residues, centre = [0., 0., 0.], chain = "A"):
         super(VirtualBeta, self).__init__(residues, centre, chain)
         self.last_orientation = self._RADIUS["CA"]
+        self.atoms = []
+        self.atomtypes = []
         for x in range(len(self.points)):
             self.last_orientation *= -1
-            self.residue_atoms = []
             for atomtype in self._ATOMTYPES:
                 point = np.copy(self.points[x]) + np.array([self._SHIFT[atomtype] * self.last_orientation, self._ATOM_CA_DIST[atomtype], self._RADIUS[atomtype] * self.last_orientation])
-                self.residue_atoms.append([atomtype, point])
-            self.atoms.append(self.residue_atoms)
-
+                self.atomtypes.append(atomtype)
+                self.atoms.append(point)
 
 if __name__ == '__main__':
-    y = VirtualBeta(12, [0., 0., 0.])
-    print(y.atom_points(1, seq="SSQEALHVTERK"))
-    y.shift(x=4.9, y=0.)
+    y = VirtualBeta(16, [0., 0., 0.])
+
+    y.shift_to_origin()
+    print y.atom_points(2, seq="AAAAAAAAAAAAAAAA")
+
+    y.shift_to_origin()
+    y.shift(x=4.9, y=0, z=0.)
+    print y.atom_points(17, seq="AAAAAAAAAAAAAAAA")
+
+    y.shift_to_origin()
+    y.shift(x=4.9, y=1., z=0.)
     y.invert_direction()
-    y.flip()
-    print(y.atom_points(12, seq="SSQEALHVTERK"))
-    y.shift(x=4.9, y=0., z=0.)
-    print(y.atom_points(25, seq="SSQEALHVTERK"))
+    print y.atom_points(31, seq="AAAAAAAAAAAAAAAAA")

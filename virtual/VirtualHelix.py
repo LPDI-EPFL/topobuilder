@@ -41,6 +41,7 @@ class VirtualHelixAlpha(VS):
         self.edge_angles = [0., 0.]
         for x in range(len(self.points)):
             self.residue_atoms = []
+            self.residue_atomtypes = []
             for atomtype in self._ATOMTYPES:
                 if atomtype is "CA":
                     angle = self._ANGLES["CA"] * x
@@ -48,9 +49,12 @@ class VirtualHelixAlpha(VS):
                     angle = self._ANGLES["CA"] * x + self._ANGLES[atomtype]
                 point = np.copy(self.points[x]) + np.array([self._RADIUS[atomtype], self._ATOM_CA_DIST[atomtype], 0.])
                 self._tilt_y_point_from_centre(self.points[x], point, np.radians(angle))
-                self.residue_atoms.append([atomtype, point])
+                #self.residue_atoms.append([atomtype, point])
+                #self.residue_atomtypes.append(atomtype)
+                #self.residue_atoms.append(point)
                 self.edge_angles[1] = angle
-            self.atoms.append(self.residue_atoms)
+                self.atoms.append(point)
+                self.atomtypes.append(atomtype)
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError
@@ -91,16 +95,16 @@ class VirtualHelixPi(VirtualHelixAlpha):
 
 if __name__ == '__main__':
     y = VirtualHelix(20, [0, 0, 0])
-    #print(y.guide_points(1))
-    #print(y.atom_points(13, seq="SSQEALHVTERK"))
-    print(y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA"))
-    #y.chain = "B"
-    #y.tilt_degrees(z_angle = 45)
-    #print(y.guide_points(1))
-    #print(y.atom_points(25, seq="SSQEALHVTERK"))
-    #y.chain = "C"
-    #y.shift(x = 10)
-    #y.spin_degrees(angle = 100)
-    # y.invert_direction()
-    #print(y.guide_points(1))
-    #print(y.atom_points(45, seq="SSQEALHVTERK"))
+    print y.guide_points(1)
+    print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
+    print y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA")
+    y.chain = "B"
+    y.tilt_degrees(z_angle = 45)
+    print y.guide_points(1)
+    print y.atom_points(5, seq="AAAAAAAAAAAAAAAAAAAAA")
+    y.chain = "C"
+    y.shift(x = 10)
+    y.spin_degrees(angle = 100)
+    y.invert_direction()
+    print y.guide_points(1)
+    print y.atom_points(45, seq="AAAAAAAAAAAAAAAAAAAAA")

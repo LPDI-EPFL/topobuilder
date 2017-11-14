@@ -36,15 +36,16 @@ class VirtualStructure(object):
     def __init__(self, residues, centre = [0., 0., 0.], chain = "A"):
         self.residues = int(residues)
         self.chain    = chain
-        self.centre   = np.array(centre)
+        self.centre   = np.array(centre, dtype="float64")
         self.max_dist = float(self._MAX_AA_DIST * self.residues)
         self.edges    = [np.copy(self.centre) + np.array([0, self.max_dist / 2, 0]),
                          np.copy(self.centre) - np.array([0, self.max_dist / 2, 0])]
         self.points   = []
         for x in range(self.residues):
             self.points.append(np.copy(self.edges[0]) - np.array([0, self._MAX_AA_DIST * x, 0]) )
-        self.residue_atoms = []
+        #self.residue_atoms = []
         self.atoms    = []
+        self.atomtypes = []
         self.atom = None
         self.Rapplied = np.eye(3)
         self.is_inverted = False
@@ -106,11 +107,11 @@ class VirtualStructure(object):
     def apply_matrix(self, R):
         if len(self.edges):  self.edges  = np.dot(self.edges,  R)
         if len(self.points): self.points = np.dot(self.points, R)
-        #if len(self.atoms):  self.atoms  = np.dot(self.atoms,  R)
-        if len(self.atoms):
-            for residue_atoms in self.atoms:
-                for atom in residue_atoms:
-                    atom[1] = np.dot(atom[1],  R)
+        if len(self.atoms):  self.atoms  = np.dot(self.atoms,  R)
+        #if len(self.atoms):
+            #for residue_atoms in self.atoms:
+                #for atom in residue_atoms:
+                    #atom = np.dot(atom,  R)
 
     # ROTATE ON AXIS
     def spin_radians(self, angle): self.spin_degrees(np.degrees(angle))
@@ -127,34 +128,35 @@ class VirtualStructure(object):
         self.spinned += angle
 
     # SHIFT
-    def shift_x(self, x): self.shift(x, 0, 0)
-    def shift_y(self, y): self.shift(0, y, 0)
-    def shift_z(self, z): self.shift(0, 0, z)
+    def shift_x(self, x): self.shift(x, 0., 0.)
+    def shift_y(self, y): self.shift(0., y, 0.)
+    def shift_z(self, z): self.shift(0., 0., z)
 
     def shift(self, x = 0., y = 0., z = 0.):
         t = np.array(x) if isinstance(x, Iterable) else np.array([x, y, z])
         self.centre += t
         self.edges  += t
         self.points += t
-        #if len(self.atoms): self.atoms += t
-        if len(self.atoms):
-            for residue_atoms in self.atoms:
-                for atom in residue_atoms:
-                    atom[1] += t
+        if len(self.atoms): self.atoms += t
+        #if len(self.atoms):
+            #for residue_atoms in self.atoms:
+                #for atom in residue_atoms:
+                    #atom += t
 
-    def flip(self):
-        if len(self.atoms):
-            for residue_atoms in self.atoms:
-                for atom in residue_atoms:
-                    atom[1][0] *= -1
+    #def flip(self):
+        #if len(self.atoms):
+            #for residue_atoms in self.atoms:
+                #for atom in residue_atoms:
+                    #atom[1][0] *= -1
+                    #atom[1][1] *= -1
                     #atom[1][2] *= -1
         #if np.allclose(self.Rapplied, np.eye(3)):
-            #self.tilt_degrees(y_angle = 180, store = False)
+            #self.tilt_degrees(x_angle = 0, y_angle = 180, store = False)
         #else:
             #euler1 = mat2euler(self.Rapplied)
             #euler2 = mat2euler(self.Rapplied.transpose())
             #self.tilt_radiants(euler2[0], euler2[1], euler2[2])
-            #self.tilt_degrees(y_angle = 180, store = False)
+            #self.tilt_degrees(x_angle = 0, y_angle = 180, store = False)
             #self.tilt_radiants(euler1[0], euler1[1], euler1[2])
         #self.is_inverted = not self.is_inverted
 
@@ -255,14 +257,17 @@ class VirtualStructure(object):
              "I": "ILE", "P": "PRO", "T": "THR", "F": "PHE", "N": "ASN",
              "G": "GLY", "H": "HIS", "L": "LEU", "R": "ARG", "W": "TRP",
              "A": "ALA", "V": "VAL", "E": "GLU", "Y": "TYR", "M": "MET"}
-        if seq is None and self.sequence is not None: seq = self.sequence
-        if seq is None: seq = "G" * len(self.atoms)
-        else:           seq = seq.upper()
+        if seq is None and self.sequence is not None: seq = self.sequence #* (int(len(self.atoms)/len(seq)))
+        if seq is None: seq = "G" #* (int(len(self.atoms)/len(seq)))
+        else:           seq = seq.upper() #* (int(len(self.atoms)/len(seq)))
 
-        for x, residue_atoms in enumerate(self.atoms):
-            for i,residue_atom in enumerate(residue_atoms):
-                data.append(self._STRING_ATOMS[residue_atom[0]].format(atom + count, residue_atom[1], self.chain, d[seq[x]]))
-            count += 1
+        #for x, (point, atomtype) in enumerate(zip(self.atoms, self.atomtypes)):
+        for x, (points, atomtype) in enumerate(zip(self.atoms, self.atomtypes)):
+            #for i, (residue_atom, residue_atomtype) in enumerate(zip(residue_atoms, residue_atomtypes)):
+            #data.append(self._STRING_ATOMS[residue_atom[0]].format(atom + count, residue_atom[1], self.chain, d[seq[x]]))
+            data.append(self._STRING_ATOMS[atomtype].format(atom + count, points, self.chain, d[seq[count]]))
+            if (1 + x)%len(self._ATOMTYPE)==0:
+                count += 1
         return "\n".join(data)
 
     def __eq__(self, other):
@@ -307,22 +312,23 @@ if __name__ == '__main__':
     print (x.axis_points(25))
     z = VirtualStructure(15, [3., 12., 6.], chain="G")
     z.tilt_degrees(z_angle = 90)
+    z.shift(x=4.9, y=1., z=0.)
     print (z.axis_points(28))
 
-    # y = VirtualStructure(15, [3., 12., 6.], chain="C")
-    # x = VirtualStructure(15, [3., 12., 6.], chain="C")
-    # x.tilt_degrees(z_angle=45)
-    # z = VirtualStructure(15, [3., 12., 6.], chain="D")
-    # z.tilt_degrees(x_angle=45)
-    # p = VirtualStructure(15, [3., 12., 6.], chain="E")
-    # p.tilt_degrees(x_angle=45, z_angle=45)
-    # # p.tilt_x_degrees(45)
-    # # p.tilt_y_degrees(45)
-    # print y.axis_points(19)
-    # print x.axis_points(22)
-    # print z.axis_points(25)
-    # print p.axis_points(28)
-    # t = VirtualStructure(15, [3., 12., 6.], chain="C")
-    # t.tilt_degrees(x_angle = 45, z_angle = 90)
-    # t.invert_direction()
-    # print t.axis_points(31)
+    y = VirtualStructure(15, [3., 12., 6.], chain="C")
+    x = VirtualStructure(15, [3., 12., 6.], chain="C")
+    x.tilt_degrees(z_angle=45)
+    z = VirtualStructure(15, [3., 12., 6.], chain="D")
+    z.tilt_degrees(x_angle=45)
+    p = VirtualStructure(15, [3., 12., 6.], chain="E")
+    p.tilt_degrees(x_angle=45, z_angle=45)
+    p.tilt_x_degrees(45)
+    p.tilt_y_degrees(45)
+    print y.axis_points(19)
+    print x.axis_points(22)
+    print z.axis_points(25)
+    print p.axis_points(28)
+    t = VirtualStructure(15, [3., 12., 6.], chain="C")
+    t.tilt_degrees(x_angle = 45, z_angle = 90)
+    t.invert_direction()
+    print t.axis_points(31)
