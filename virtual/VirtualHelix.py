@@ -22,7 +22,11 @@ class VirtualHelix(object):
 class VirtualHelixAlpha(VS):
 
     _MAX_AA_DIST  = 1.5
-    _RADIUS       = 2.3
+    _ATOMTYPES    = ("N", "CA", "C", "O", "H")
+    _ATOM_CA_DIST = {"N": 0.841, "CA": 0, "C": -1.029, "O": -2.248, "H": 1.839}
+    _RADIUS       = {"N": 1.5, "CA": 2.3, "C": 1.8, "O": 2.1, "H": 1.5}
+    _ANGLES       = {"N": -28.3, "CA": 100, "C": 28.9, "O": 24.5, "H": -22.5}
+
     # CHOP780201 alpha-helix propensity AAindex (Chou-Fasman, 1978b)
     # TO 0: G -> 0.57; P -> 0.57
     _AA_STAT = [("A", 1.42), ("L", 1.21), ("R", 0.98), ("K", 1.16), ("N", 0.67),
@@ -32,16 +36,25 @@ class VirtualHelixAlpha(VS):
 
     _TYPE = "H"
 
-    def __init__(self, residues, centre = [0., 0., 0.], angle = 100, chain = "A"):
+    def __init__(self, residues, centre = [0., 0., 0.], chain = "A"):
         super(VirtualHelixAlpha, self).__init__(residues, centre, chain)
-        self.angle = angle
         self.edge_angles = [0., 0.]
         for x in range(len(self.points)):
-            angle = self.angle * x
-            point = np.copy(self.points[x]) + np.array([self._RADIUS, 0., 0.])
-            self._tilt_y_point_from_centre(self.points[x], point, np.radians(angle))
-            self.atoms.append(point)
-            self.edge_angles[1] = angle
+            self.residue_atoms = []
+            self.residue_atomtypes = []
+            for atomtype in self._ATOMTYPES:
+                if atomtype is "CA":
+                    angle = self._ANGLES["CA"] * x
+                else:
+                    angle = self._ANGLES["CA"] * x + self._ANGLES[atomtype]
+                point = np.copy(self.points[x]) + np.array([self._RADIUS[atomtype], self._ATOM_CA_DIST[atomtype], 0.])
+                self._tilt_y_point_from_centre(self.points[x], point, np.radians(angle))
+                #self.residue_atoms.append([atomtype, point])
+                #self.residue_atomtypes.append(atomtype)
+                #self.residue_atoms.append(point)
+                self.edge_angles[1] = angle
+                self.atoms.append(point)
+                self.atomtypes.append(atomtype)
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError
@@ -81,16 +94,17 @@ class VirtualHelixPi(VirtualHelixAlpha):
 
 
 if __name__ == '__main__':
-    y = VirtualHelix(12, [0, 0, 0])
+    y = VirtualHelix(20, [0, 0, 0])
     print y.guide_points(1)
-    print y.atom_points(13, seq="SSQEALHVTERK")
+    print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
+    print y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA")
     y.chain = "B"
     y.tilt_degrees(z_angle = 45)
     print y.guide_points(1)
-    print y.atom_points(25, seq="SSQEALHVTERK")
+    print y.atom_points(5, seq="AAAAAAAAAAAAAAAAAAAAA")
     y.chain = "C"
     y.shift(x = 10)
     y.spin_degrees(angle = 100)
-    # y.invert_direction()
+    y.invert_direction()
     print y.guide_points(1)
-    print y.atom_points(45, seq="SSQEALHVTERK")
+    print y.atom_points(45, seq="AAAAAAAAAAAAAAAAAAAAA")
