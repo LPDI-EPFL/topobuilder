@@ -22,7 +22,7 @@ class VirtualHelix(object):
 class VirtualHelixAlpha(VS):
 
     _MAX_AA_DIST  = 1.5
-    _ATOMTYPES    = ("N", "CA", "C", "O", "H")
+    _ATOMTYPES    = ("N", "CA", "C", "O")#, "H")
     _ATOM_CA_DIST = {"N": 0.841, "CA": 0, "C": -1.029, "O": -2.248, "H": 1.839}
     _RADIUS       = {"N": 1.5, "CA": 2.3, "C": 1.8, "O": 2.1, "H": 1.5}
     _ANGLES       = {"N": -28.3, "CA": 100, "C": 28.9, "O": 24.5, "H": -22.5}
