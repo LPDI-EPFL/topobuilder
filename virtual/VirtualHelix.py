@@ -39,9 +39,9 @@ class VirtualHelixAlpha(VS):
     def __init__(self, residues, centre = [0., 0., 0.], chain = "A"):
         super(VirtualHelixAlpha, self).__init__(residues, centre, chain)
         self.edge_angles = [0., 0.]
+        self.atoms = []
+        self.atomtypes = []
         for x in range(len(self.points)):
-            self.residue_atoms = []
-            self.residue_atomtypes = []
             for atomtype in self._ATOMTYPES:
                 if atomtype is "CA":
                     angle = self._ANGLES["CA"] * x
@@ -49,9 +49,6 @@ class VirtualHelixAlpha(VS):
                     angle = self._ANGLES["CA"] * x + self._ANGLES[atomtype]
                 point = np.copy(self.points[x]) + np.array([self._RADIUS[atomtype], self._ATOM_CA_DIST[atomtype], 0.])
                 self._tilt_y_point_from_centre(self.points[x], point, np.radians(angle))
-                #self.residue_atoms.append([atomtype, point])
-                #self.residue_atomtypes.append(atomtype)
-                #self.residue_atoms.append(point)
                 self.edge_angles[1] = angle
                 self.atoms.append(point)
                 self.atomtypes.append(atomtype)

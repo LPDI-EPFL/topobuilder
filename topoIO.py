@@ -26,7 +26,7 @@ def print_json(data, filename = None):
 def read_pdbs(data):
     def good_chain(line, chain):
         if not line.startswith("ATOM"): return False
-        if line[13:15] not in ["CA", "O ", "N ", "C ", "H "]:        return False
+        if line[13:15] not in ["CA", "O ", "N ", "C "]:        return False
         if line[21] != chain:           return False
         return True
 
