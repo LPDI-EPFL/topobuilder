@@ -15,14 +15,22 @@ from transforms3d.euler import euler2mat, mat2euler
 class VirtualStructure(object):
 
     _MAX_AA_DIST = 3.2
-    _ATOMTYPE     = ("N", "CA", "C", "O", "H")
+    _ATOMTYPE     = ("N", "CA", "C", "O")#, "H")
     _STRING_X    = "HETATM{0:>5d}  X     X {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00"
+    # _STRING_ATOMS   = {
+    #                     "N": "ATOM  {0:>5d}  N   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+    #                     "CA": "ATOM  {0:>5d}  CA  {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+    #                     "C": "ATOM  {0:>5d}  C   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+    #                     "O": "ATOM  {0:>5d}  O   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+    #                     "H": "ATOM  {0:>5d}  H   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+    #                     }
+
     _STRING_ATOMS   = {
-                        "N": "ATOM  {0:>5d}  N   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-                        "CA": "ATOM  {0:>5d}  CA  {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-                        "C": "ATOM  {0:>5d}  C   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-                        "O": "ATOM  {0:>5d}  O   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-                        "H": "ATOM  {0:>5d}  H   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+                        "N": "ATOM  {4:>5d}  N   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+                        "CA": "ATOM  {4:>5d}  CA  {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+                        "C": "ATOM  {4:>5d}  C   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+                        "O": "ATOM  {4:>5d}  O   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
+                        "H": "ATOM  {4:>5d}  H   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
                         }
 
     _A123 = {"C": "CYS", "D": "ASP", "S": "SER", "Q": "GLN", "K": "LYS",
@@ -108,10 +116,6 @@ class VirtualStructure(object):
         if len(self.edges):  self.edges  = np.dot(self.edges,  R)
         if len(self.points): self.points = np.dot(self.points, R)
         if len(self.atoms):  self.atoms  = np.dot(self.atoms,  R)
-        #if len(self.atoms):
-            #for residue_atoms in self.atoms:
-                #for atom in residue_atoms:
-                    #atom = np.dot(atom,  R)
 
     # ROTATE ON AXIS
     def spin_radians(self, angle): self.spin_degrees(np.degrees(angle))
@@ -138,27 +142,6 @@ class VirtualStructure(object):
         self.edges  += t
         self.points += t
         if len(self.atoms): self.atoms += t
-        #if len(self.atoms):
-            #for residue_atoms in self.atoms:
-                #for atom in residue_atoms:
-                    #atom += t
-
-    #def flip(self):
-        #if len(self.atoms):
-            #for residue_atoms in self.atoms:
-                #for atom in residue_atoms:
-                    #atom[1][0] *= -1
-                    #atom[1][1] *= -1
-                    #atom[1][2] *= -1
-        #if np.allclose(self.Rapplied, np.eye(3)):
-            #self.tilt_degrees(x_angle = 0, y_angle = 180, store = False)
-        #else:
-            #euler1 = mat2euler(self.Rapplied)
-            #euler2 = mat2euler(self.Rapplied.transpose())
-            #self.tilt_radiants(euler2[0], euler2[1], euler2[2])
-            #self.tilt_degrees(x_angle = 0, y_angle = 180, store = False)
-            #self.tilt_radiants(euler1[0], euler1[1], euler1[2])
-        #self.is_inverted = not self.is_inverted
 
     def shift_to_origin(self):
         anti = np.copy(self.centre) if not self.in_origin() else np.array([0., 0., 0.])
@@ -265,7 +248,7 @@ class VirtualStructure(object):
         for x, (points, atomtype) in enumerate(zip(self.atoms, self.atomtypes)):
             #for i, (residue_atom, residue_atomtype) in enumerate(zip(residue_atoms, residue_atomtypes)):
             #data.append(self._STRING_ATOMS[residue_atom[0]].format(atom + count, residue_atom[1], self.chain, d[seq[x]]))
-            data.append(self._STRING_ATOMS[atomtype].format(atom + count, points, self.chain, d[seq[count]]))
+            data.append(self._STRING_ATOMS[atomtype].format(atom + count, points, self.chain, d[seq[count]], atom + x))
             if (1 + x)%len(self._ATOMTYPE)==0:
                 count += 1
         return "\n".join(data)

@@ -12,7 +12,7 @@ class VirtualBeta(VS):
     # The pleating causes the distance between alpha[i] and alpha[i+2] to be
     # approximately 6, rather than the 7.6 (2 × 3.8) expected from
     # two fully extended trans peptides.
-    _ATOMTYPES    = ("N", "CA", "C", "O", "H")
+    _ATOMTYPES    = ("N", "CA", "C", "O")#, "H")
     #_MAX_AA_DIST  = 3.25
     #_ATOM_CA_DIST = {"N": 2.5, "CA": 3.8, "C": 1.43 , "O": 1.55, "H": 2.5}
     #_RADIUS       = {"N": 0.3, "CA": 1.06, "C": 1.082 , "O": 1.082, "H": 0.3}
