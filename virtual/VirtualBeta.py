@@ -53,12 +53,17 @@ class VirtualBeta(VS):
         self.last_orientation = self._RADIUS["CA"]
         self.atoms = []
         self.atomtypes = []
+        self.residuenumbers = []
+        count = 0
         for x in range(len(self.points)):
             self.last_orientation *= -1
             for atomtype in self._ATOMTYPES:
                 point = np.copy(self.points[x]) + np.array([self._SHIFT[atomtype] * self.last_orientation, self._ATOM_CA_DIST[atomtype], self._RADIUS[atomtype] * self.last_orientation])
                 self.atomtypes.append(atomtype)
                 self.atoms.append(point)
+                if (1 + x)%len(self._ATOMTYPE)==0:
+                    count += 1
+                self.residuenumbers.append(1 + x + count)
 
 if __name__ == '__main__':
     y = VirtualBeta(16, [0., 0., 0.])

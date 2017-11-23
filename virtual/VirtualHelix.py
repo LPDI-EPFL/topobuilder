@@ -41,6 +41,8 @@ class VirtualHelixAlpha(VS):
         self.edge_angles = [0., 0.]
         self.atoms = []
         self.atomtypes = []
+        self.residuenumbers = []
+        count = 0
         for x in range(len(self.points)):
             for atomtype in self._ATOMTYPES:
                 if atomtype is "CA":
@@ -52,6 +54,9 @@ class VirtualHelixAlpha(VS):
                 self.edge_angles[1] = angle
                 self.atoms.append(point)
                 self.atomtypes.append(atomtype)
+                if (1 + x)%len(self._ATOMTYPE)==0:
+                    count += 1
+                self.residuenumbers.append(1 + x + count)
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError
