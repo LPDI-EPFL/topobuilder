@@ -38,7 +38,6 @@ def prepare_forms(data, options):
                                 #print structures[x["id"]].atoms[CA_indx]
                                 #print type(z["sequence"]), z["sequence"]
                                 structures[x["id"]].add_3AAseq(z["sequence"][:int(x["length"]/4)]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
-
                                 structures[x["id"]].atoms = z["coordinates"]
                                 #structures[x["id"]].add_3AAseq(z["sequence"])
             else:

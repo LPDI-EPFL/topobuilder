@@ -49,7 +49,7 @@ class Form(object):
                     if y.atomtypes[r1] == "CA" and y.atomtypes[r2] == "CA":
                         d = scipy.spatial.distance.euclidean(y.atoms[r1], y.atoms[r2])
                         #self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
-                        self.const.add_constraint(num1 = y.residuenumbers[r1], num2 = y.residuenumbers[r2], value = d, dev=1.5, tag="INNER")
+                        self.const.add_constraint(num1 = p + y.residuenumbers[r1] - 1, num2 = p + y.residuenumbers[r2], value = d, dev=1.5, tag="INNER")
 
         for x in range(len(self.sslist)):
             px = self.inits[x]
@@ -62,7 +62,7 @@ class Form(object):
                         if sx.atomtypes[r1] == "CA" and sy.atomtypes[r2] == "CA":
                             d = scipy.spatial.distance.euclidean(sx.atoms[r1], sy.atoms[r2])
                             #self.const.add_constraint(num1 = px + r1, num2 = py + r2, value = d, dev=3.0, tag="OUTER")
-                            self.const.add_constraint(num1 = sx.residuenumbers[r1], num2 = sy.residuenumbers[r2], value = d, dev=3.0, tag="OUTER")
+                            self.const.add_constraint(num1 = px + sx.residuenumbers[r1] - 1, num2 = py + sy.residuenumbers[r2] - 1, value = d, dev=3.0, tag="OUTER")
 
     # def _check_invert(self):  # TODO: wrong
     #     count1 = 0
@@ -86,7 +86,8 @@ class Form(object):
             for xx in self.sslist[x].sequence:
                 self.seq_str.append((xx, self.sslist[x].get_type(), "S"))
             i += len(self.sslist[x].sequence)
-            d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-1], self.sslist[x + 1].atoms[0])
+            #d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-1], self.sslist[x + 1].atoms[0])
+            d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-3], self.sslist[x + 1].atoms[1])
             d = int(math.ceil(d / 3.))
             i += d
             for yy in range(d):

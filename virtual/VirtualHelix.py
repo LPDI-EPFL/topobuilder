@@ -44,6 +44,7 @@ class VirtualHelixAlpha(VS):
         self.residuenumbers = []
         count = 0
         for x in range(len(self.points)):
+            count += 1
             for atomtype in self._ATOMTYPES:
                 if atomtype is "CA":
                     angle = self._ANGLES["CA"] * x
@@ -51,12 +52,13 @@ class VirtualHelixAlpha(VS):
                     angle = self._ANGLES["CA"] * x + self._ANGLES[atomtype]
                 point = np.copy(self.points[x]) + np.array([self._RADIUS[atomtype], self._ATOM_CA_DIST[atomtype], 0.])
                 self._tilt_y_point_from_centre(self.points[x], point, np.radians(angle))
-                self.edge_angles[1] = angle
-                self.atoms.append(point)
+                #self.edge_angles[1] = angle
                 self.atomtypes.append(atomtype)
-                if (1 + x)%len(self._ATOMTYPE)==0:
-                    count += 1
-                self.residuenumbers.append(1 + x + count)
+                self.atoms.append(point)
+                #if (1 + x)%len(self._ATOMTYPE)==0:
+                    #¡count += 1
+                self.residuenumbers.append(count)
+        print self.residuenumbers
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError
@@ -96,17 +98,24 @@ class VirtualHelixPi(VirtualHelixAlpha):
 
 
 if __name__ == '__main__':
-    y = VirtualHelix(20, [0, 0, 0])
-    print y.guide_points(1)
+    y = VirtualHelix(20, [5, 5, 5])
     print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
-    print y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA")
-    y.chain = "B"
-    y.tilt_degrees(z_angle = 45)
-    print y.guide_points(1)
-    print y.atom_points(5, seq="AAAAAAAAAAAAAAAAAAAAA")
     y.chain = "C"
-    y.shift(x = 10)
-    y.spin_degrees(angle = 100)
-    y.invert_direction()
-    print y.guide_points(1)
-    print y.atom_points(45, seq="AAAAAAAAAAAAAAAAAAAAA")
+    #y.shift(x=4.9, y=0, z=0.)
+    y.shift_to_origin()
+    print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
+
+    #y = VirtualHelix(20, [0, 0, 0])
+    #print y.guide_points(1)
+    #print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
+    #print y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA")
+    #y.chain = "B"
+    #y.tilt_degrees(z_angle = 45)
+    #print y.guide_points(1)
+    #print y.atom_points(5, seq="AAAAAAAAAAAAAAAAAAAAA")
+    #y.chain = "C"
+    #y.shift(x = 10)
+    #y.spin_degrees(angle = 100)
+    #y.invert_direction()
+    #print y.guide_points(1)
+    #print y.atom_points(45, seq="AAAAAAAAAAAAAAAAAAAAA")
