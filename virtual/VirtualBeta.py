@@ -52,13 +52,23 @@ class VirtualBeta(VS):
         super(VirtualBeta, self).__init__(residues, centre, chain)
         self.last_orientation = self._RADIUS["CA"]
         self.atoms = []
+        #self.ca_atoms = []
         self.atomtypes = []
+        self.residuenumbers = []
+        count = 0
         for x in range(len(self.points)):
+            count += 1
             self.last_orientation *= -1
+            #ca_point = np.copy(self.points[x]) + np.array([0. , 0., self.last_orientation])
+            #self.atoms.append(ca_point)
             for atomtype in self._ATOMTYPES:
-                point = np.copy(self.points[x]) + np.array([self._SHIFT[atomtype] * self.last_orientation, self._ATOM_CA_DIST[atomtype], self._RADIUS[atomtype] * self.last_orientation])
+                points = np.copy(self.points[x]) + np.array([self._SHIFT[atomtype] * self.last_orientation, self._ATOM_CA_DIST[atomtype] - self._ATOM_CA_DIST["CA"], self._RADIUS[atomtype] * self.last_orientation])
                 self.atomtypes.append(atomtype)
-                self.atoms.append(point)
+                self.atoms.append(points)
+                #if (1 + x)%len(self._ATOMTYPE)==0:
+                    #count += 1
+                #self.residuenumbers.append(1 + x + count)
+                self.residuenumbers.append(count)
 
 if __name__ == '__main__':
     y = VirtualBeta(16, [0., 0., 0.])

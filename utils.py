@@ -5,6 +5,7 @@
 # @Last Modified time: 2016-05-03 14:28:22
 import os
 import copy
+import numpy as np
 from .virtual.VirtualReverse import VirtualReverse
 from .virtual.VirtualMaker   import VirtualMaker
 from .form.Form import Form
@@ -27,8 +28,18 @@ def prepare_forms(data, options):
                     if y["id"] == group:
                         for z in y["segments"]:
                             if z["id"] == motif:
+                                #if structures[x["id"]].atomtypes == "CA":
+                                #structures[x["id"]].atoms = z["coordinates"]
+                                #print z["sequence"][CA_indx]
+                                #print structures[x["id"]][CA_indx].atoms
+                                #print structures[x["id"]][CA_indx].atomtypes
+                                #if structures[x["id"]].atomtypes == "CA":
+                                #structures[x["id"]].atoms = z["coordinates"]
+                                #print structures[x["id"]].atoms[CA_indx]
+                                #print type(z["sequence"]), z["sequence"]
+                                structures[x["id"]].add_3AAseq(z["sequence"][:int(x["length"]/4)]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
                                 structures[x["id"]].atoms = z["coordinates"]
-                                structures[x["id"]].add_3AAseq(z["sequence"])
+                                #structures[x["id"]].add_3AAseq(z["sequence"])
             else:
                 structures[x["id"]].create_stat_sequence()
                 structures[x["id"]].tilt_y_degrees(x["tilt_y"])
