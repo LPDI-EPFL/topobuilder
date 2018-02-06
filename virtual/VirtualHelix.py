@@ -21,7 +21,7 @@ class VirtualHelix(object):
 
 class VirtualHelixAlpha(VS):
 
-    #_MAX_AA_DIST  = 1.5
+    _MAX_AA_DIST  = 1.5
     _ATOMTYPES    = ("N", "CA", "C", "O")#, "H")
 
     _ATOM_CA_DIST = {"N": 0.841, "CA": 0, "C": -1.029, "O": -2.248, "H": 1.839}
@@ -56,7 +56,6 @@ class VirtualHelixAlpha(VS):
                 self.atomtypes.append(atomtype)
                 self.atoms.append(point)
                 self.residuenumbers.append(count)
-        #print self.residuenumbers
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError
