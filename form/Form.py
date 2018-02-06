@@ -82,6 +82,7 @@ class Form(object):
             if self.sslist[x].sequence is None:
                 self.sslist[x].create_stat_sequence()
             for xx in self.sslist[x].sequence:
+                print xx
                 self.seq_str.append((xx, self.sslist[x].get_type(), "S"))
             i += len(self.sslist[x].sequence)
             #d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-1], self.sslist[x + 1].atoms[0])
