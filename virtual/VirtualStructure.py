@@ -17,13 +17,6 @@ class VirtualStructure(object):
     _MAX_AA_DIST = 3.2
     _ATOMTYPE     = ("N", "CA", "C", "O")#, "H")
     _STRING_X    = "HETATM{0:>5d}  X     X {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00"
-    # _STRING_ATOMS   = {
-    #                     "N": "ATOM  {0:>5d}  N   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-    #                     "CA": "ATOM  {0:>5d}  CA  {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-    #                     "C": "ATOM  {0:>5d}  C   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-    #                     "O": "ATOM  {0:>5d}  O   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-    #                     "H": "ATOM  {0:>5d}  H   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
-    #                     }
 
     _STRING_ATOMS   = {
                         "N": "ATOM  {4:>5d}  N   {3:>3} {2}{0:>4d} {1[0]:>11.3f}{1[1]:>8.3f}{1[2]:>8.3f}  1.00",
@@ -51,7 +44,6 @@ class VirtualStructure(object):
         self.points   = []
         for x in range(self.residues):
             self.points.append(np.copy(self.edges[0]) - np.array([0, self._MAX_AA_DIST * x, 0]) )
-        #self.residue_atoms = []
         self.atoms    = []
         self.atomtypes = []
         self.atom = None
@@ -244,10 +236,7 @@ class VirtualStructure(object):
         if seq is None: seq = "G" #* (int(len(self.atoms)/len(seq)))
         else:           seq = seq.upper() #* (int(len(self.atoms)/len(seq)))
 
-        #for x, (point, atomtype) in enumerate(zip(self.atoms, self.atomtypes)):
         for x, (points, atomtype) in enumerate(zip(self.atoms, self.atomtypes)):
-            #for i, (residue_atom, residue_atomtype) in enumerate(zip(residue_atoms, residue_atomtypes)):
-            #data.append(self._STRING_ATOMS[residue_atom[0]].format(atom + count, residue_atom[1], self.chain, d[seq[x]]))
             data.append(self._STRING_ATOMS[atomtype].format(atom + count, points, self.chain, d[seq[count]], atom + x))
             if (1 + x)%len(self._ATOMTYPE)==0:
                 count += 1

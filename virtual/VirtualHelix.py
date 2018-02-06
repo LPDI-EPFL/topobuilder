@@ -21,8 +21,9 @@ class VirtualHelix(object):
 
 class VirtualHelixAlpha(VS):
 
-    _MAX_AA_DIST  = 1.5
+    #_MAX_AA_DIST  = 1.5
     _ATOMTYPES    = ("N", "CA", "C", "O")#, "H")
+    
     _ATOM_CA_DIST = {"N": 0.841, "CA": 0, "C": -1.029, "O": -2.248, "H": 1.839}
     _RADIUS       = {"N": 1.5, "CA": 2.3, "C": 1.8, "O": 2.1, "H": 1.5}
     _ANGLES       = {"N": -28.3, "CA": 100, "C": 28.9, "O": 24.5, "H": -22.5}
@@ -52,11 +53,8 @@ class VirtualHelixAlpha(VS):
                     angle = self._ANGLES["CA"] * x + self._ANGLES[atomtype]
                 point = np.copy(self.points[x]) + np.array([self._RADIUS[atomtype], self._ATOM_CA_DIST[atomtype], 0.])
                 self._tilt_y_point_from_centre(self.points[x], point, np.radians(angle))
-                #self.edge_angles[1] = angle
                 self.atomtypes.append(atomtype)
                 self.atoms.append(point)
-                #if (1 + x)%len(self._ATOMTYPE)==0:
-                    #¡count += 1
                 self.residuenumbers.append(count)
         print self.residuenumbers
 
@@ -101,21 +99,21 @@ if __name__ == '__main__':
     y = VirtualHelix(20, [5, 5, 5])
     print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
     y.chain = "C"
-    #y.shift(x=4.9, y=0, z=0.)
+    y.shift(x=4.9, y=0, z=0.)
     y.shift_to_origin()
     print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
 
-    #y = VirtualHelix(20, [0, 0, 0])
-    #print y.guide_points(1)
-    #print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
-    #print y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA")
-    #y.chain = "B"
-    #y.tilt_degrees(z_angle = 45)
-    #print y.guide_points(1)
-    #print y.atom_points(5, seq="AAAAAAAAAAAAAAAAAAAAA")
-    #y.chain = "C"
-    #y.shift(x = 10)
-    #y.spin_degrees(angle = 100)
-    #y.invert_direction()
-    #print y.guide_points(1)
-    #print y.atom_points(45, seq="AAAAAAAAAAAAAAAAAAAAA")
+    y = VirtualHelix(20, [0, 0, 0])
+    print y.guide_points(1)
+    print y.atom_points(1, seq="AAAAAAAAAAAAAAAAAAAAA")
+    print y.atom_points(12, seq="AAAAAAAAAAAAAAAAAAAAA")
+    y.chain = "B"
+    y.tilt_degrees(z_angle = 45)
+    print y.guide_points(1)
+    print y.atom_points(5, seq="AAAAAAAAAAAAAAAAAAAAA")
+    y.chain = "C"
+    y.shift(x = 10)
+    y.spin_degrees(angle = 100)
+    y.invert_direction()
+    print y.guide_points(1)
+    print y.atom_points(45, seq="AAAAAAAAAAAAAAAAAAAAA")

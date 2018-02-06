@@ -27,7 +27,6 @@ class FormFabric(object):
         _DEF_Z_DISTANCE = data["config"]["default_z"] if "default_z" in data["config"] else 11.
         _DEF_X_DISTANCE = {"H": data["config"]["default_x_h"] if "default_x_h" in data["config"] else 11.,
                            "E": data["config"]["default_x_e"] if "default_x_e" in data["config"] else 5.}
-        #_DEF_Z_TILT = data["config"]["default_z_tilt"] if "default_z_tilt" in data["config"] else 0.
         _LINK_DISTANCE  = (np.sqrt(2 * (_DEF_Z_DISTANCE * _DEF_Z_DISTANCE))) + 2.0
         _LINK_DISTANCE  = data["config"]["link_dist"] if "link_dist" in data["config"] else _LINK_DISTANCE
 
@@ -50,10 +49,6 @@ class FormFabric(object):
                 if "tilt_x" not in ss: ss["tilt_x"] = 0.0
                 if "tilt_y" not in ss: ss["tilt_y"] = 0.0
                 if "tilt_z" not in ss: ss["tilt_z"] = 0.0
-                #if "tilt_z_layer" not in ss:
-                    #ss["tilt_z"] = ztilt_layer
-                #else:
-                    #ztilt_layer = ss["tilt_z_layer"]
                 secstr = SS(ss)
                 vs = VirtualMaker(ss["length"], [0., 0., 0.], type=ss["type"])
                 if secstr.ref is not None:
