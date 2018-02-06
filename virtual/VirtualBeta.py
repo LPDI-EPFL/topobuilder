@@ -34,6 +34,7 @@ class VirtualBeta(VS):
         #self.ca_atoms = []
         self.atomtypes = []
         self.residuenumbers = []
+        self.ca_atoms = []
         count = 0
         for x in range(len(self.points)):
             count += 1
@@ -48,6 +49,8 @@ class VirtualBeta(VS):
                     #count += 1
                 #self.residuenumbers.append(1 + x + count)
                 self.residuenumbers.append(count)
+                if atomtype == "CA":
+                    self.ca_atoms.append(points)
 
 if __name__ == '__main__':
     y = VirtualBeta(16, [0., 0., 0.])

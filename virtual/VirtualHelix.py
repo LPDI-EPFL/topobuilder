@@ -43,6 +43,7 @@ class VirtualHelixAlpha(VS):
         self.atoms = []
         self.atomtypes = []
         self.residuenumbers = []
+        self.ca_atoms = []
         count = 0
         for x in range(len(self.points)):
             count += 1
@@ -56,6 +57,8 @@ class VirtualHelixAlpha(VS):
                 self.atomtypes.append(atomtype)
                 self.atoms.append(point)
                 self.residuenumbers.append(count)
+                if atomtype is "CA":
+                    self.ca_atoms.append(point)
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError

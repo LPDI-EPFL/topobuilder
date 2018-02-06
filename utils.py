@@ -28,6 +28,7 @@ def prepare_forms(data, options):
                     if y["id"] == group:
                         for z in y["segments"]:
                             if z["id"] == motif:
+                                #print "motif type {} with {} residues".format(z["id"], x["length"]/4)
                                 structures[x["id"]].add_3AAseq(z["sequence"][:int(x["length"]/4)]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
                                 structures[x["id"]].atoms = z["coordinates"]
             else:
@@ -47,7 +48,6 @@ def prepare_forms(data, options):
                     sslist[-1].invert_direction()
                 if sslist[-1].ref is not None:
                     refsegs[sslist[-1].ref] = sslist[-1].atoms
-
             f = Form(x["id"], sslist)
             f.prepare_coords()
             order = []

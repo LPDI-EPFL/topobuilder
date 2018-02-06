@@ -46,6 +46,7 @@ class VirtualStructure(object):
             self.points.append(np.copy(self.edges[0]) - np.array([0, self._MAX_AA_DIST * x, 0]) )
         self.atoms    = []
         self.atomtypes = []
+        self.ca_atoms = []
         self.atom = None
         self.Rapplied = np.eye(3)
         self.is_inverted = False

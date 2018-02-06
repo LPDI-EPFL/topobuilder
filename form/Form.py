@@ -39,17 +39,16 @@ class Form(object):
                 #self.loops.add_loop(self.inits[x], self.inits[x] + len(self.sslist[x].atoms) - 1)
 
     def make_constraints(self):
+        print("next round")
         for x in range(len(self.sslist)):
             y = self.sslist[x]
             p = self.inits[x]
-            #p = self.residuenumbers[x]
             inner_range = 1 if y.get_type() == 'C' else (2 if y.get_type() == 'E' else 5)
-            for r1 in range(len(y.atoms)):
-                for r2 in range(r1 + inner_range, len(y.atoms)):
-                    if y.atomtypes[r1] == "CA" and y.atomtypes[r2] == "CA":
-                        d = scipy.spatial.distance.euclidean(y.atoms[r1], y.atoms[r2])
-                        #self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
-                        self.const.add_constraint(num1 = p + y.residuenumbers[r1] - 1, num2 = p + y.residuenumbers[r2], value = d, dev=1.5, tag="INNER")
+            for r1 in range(len(y.ca_atoms)):
+                for r2 in range(r1 + inner_range, len(y.ca_atoms)):
+                    d = scipy.spatial.distance.euclidean(y.ca_atoms[r1], y.atoms[r2])
+                    self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
+                    #self.const.add_constraint(num1 = p + y.residuenumbers[r1] - 1, num2 = p + y.residuenumbers[r2], value = d, dev=1.5, tag="INNER")
 
         for x in range(len(self.sslist)):
             px = self.inits[x]
@@ -57,12 +56,11 @@ class Form(object):
             for y in range(x + 1, len(self.sslist)):
                 py = self.inits[y]
                 sy = self.sslist[y]
-                for r1 in range(len(sx.atoms)):
-                    for r2 in range(len(sy.atoms)):
-                        if sx.atomtypes[r1] == "CA" and sy.atomtypes[r2] == "CA":
-                            d = scipy.spatial.distance.euclidean(sx.atoms[r1], sy.atoms[r2])
-                            #self.const.add_constraint(num1 = px + r1, num2 = py + r2, value = d, dev=3.0, tag="OUTER")
-                            self.const.add_constraint(num1 = px + sx.residuenumbers[r1] - 1, num2 = py + sy.residuenumbers[r2] - 1, value = d, dev=3.0, tag="OUTER")
+                for r1 in range(len(sx.ca_atoms)):
+                    for r2 in range(len(sy.ca_atoms)):
+                        d = scipy.spatial.distance.euclidean(sx.ca_atoms[r1], sy.ca_atoms[r2])
+                        self.const.add_constraint(num1 = px + r1, num2 = py + r2, value = d, dev=3.0, tag="OUTER")
+                        #self.const.add_constraint(num1 = px + sx.residuenumbers[r1] - 1, num2 = py + sy.residuenumbers[r2] - 1, value = d, dev=3.0, tag="OUTER")
 
     # def _check_invert(self):  # TODO: wrong
     #     count1 = 0
