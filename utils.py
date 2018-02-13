@@ -28,8 +28,7 @@ def prepare_forms(data, options):
                     if y["id"] == group:
                         for z in y["segments"]:
                             if z["id"] == motif:
-                                #print "motif type {} with {} residues".format(z["id"], x["length"]/4)
-                                structures[x["id"]].add_3AAseq(z["sequence"][:int(x["length"]/4)]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
+                                structures[x["id"]].add_3AAseq(z["sequence"][::4]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
                                 structures[x["id"]].atoms = z["coordinates"]
             else:
                 structures[x["id"]].create_stat_sequence()
