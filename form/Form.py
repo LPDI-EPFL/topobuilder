@@ -42,11 +42,23 @@ class Form(object):
         for x in range(len(self.sslist)):
             y = self.sslist[x]
             p = self.inits[x]
+            print len(y.cst)
             inner_range = 1 if y.get_type() == 'C' else (2 if y.get_type() == 'E' else 5)
-            for r1 in range(len(y.ca_atoms)):
-                for r2 in range(r1 + inner_range, len(y.ca_atoms)):
-                    d = scipy.spatial.distance.euclidean(y.ca_atoms[r1], y.atoms[r2])
-                    self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
+            if y.ref is not None:
+                for r1 in range(len(y.cst)/4):
+                    for r2 in range(r1 + inner_range, len(y.cst)/4): # 1 go to Calphas
+                        d = scipy.spatial.distance.euclidean(y.cst[r1][1][0], y.cst[r2][1][0])
+                        self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
+            else:
+                for r1 in range(len(y.cst)):
+                    for r2 in range(r1 + inner_range, len(y.cst)): # 1 go to Calphas
+                        d = scipy.spatial.distance.euclidean(y.cst[r1][1][0], y.cst[r2][1][0])
+                        self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
+                    #self.const.add_constraint(num1 = r1[1] + p, num2 = r2[1] + p, atm1=r1[2], atm2=r2[2], value = d, dev=1.5, tag="INNER")
+            #for r1 in range(len(y.ca_atoms)):
+                #for r2 in range(r1 + inner_range, len(y.ca_atoms)):
+                    #d = scipy.spatial.distance.euclidean(y.ca_atoms[r1], y.ca_atoms[r2])
+                    #self.const.add_constraint(num1 = p + r1, num2 = p + r2, value = d, dev=1.5, tag="INNER")
                     #self.const.add_constraint(num1 = p + y.residuenumbers[r1] - 1, num2 = p + y.residuenumbers[r2], value = d, dev=1.5, tag="INNER")
 
         for x in range(len(self.sslist)):
