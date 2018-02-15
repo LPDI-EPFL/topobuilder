@@ -123,7 +123,10 @@ def prepare_template(data, wdir, refsegs):
         with open(os.path.join(wdir, pdbfile), "w") as fd:
             at, rs = 1, 1
             for s in sections:
-                s.align_to(refsegs[s.ref])
+                if s.ref is not None:
+                    s.align_to(refsegs[s.ref][::4])
+                else:
+                    s.align_to(refsegs[s.ref])
                 fd.write(s.to_pdb(at, rs) + "\n")
                 l.add_loop(rs, rs + len(s.guide) - 1)
                 at += len(s.atoms)
