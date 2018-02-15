@@ -44,10 +44,9 @@ class VirtualHelixAlpha(VS):
         self.atomtypes = []
         self.residuenumbers = []
         self.ca_atoms = []
-        self.cst = []
         count = 0
         for x in range(len(self.points)):
-            cst_nested = []
+            count += 1
             for atomtype in self._ATOMTYPES:
                 if atomtype is "CA":
                     angle = self._ANGLES["CA"] * x
@@ -58,11 +57,8 @@ class VirtualHelixAlpha(VS):
                 self.atomtypes.append(atomtype)
                 self.atoms.append(point)
                 self.residuenumbers.append(count)
-                cst_nested.append([point, count, atomtype])
                 if atomtype is "CA":
                     self.ca_atoms.append(point)
-            self.cst.append(cst_nested)
-            count += 1
 
     def grow_nterm(self, residues):   raise NotImplementedError
     def shrink_nterm(self, residues): raise NotImplementedError

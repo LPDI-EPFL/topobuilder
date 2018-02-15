@@ -31,7 +31,6 @@ class VirtualBeta(VS):
         super(VirtualBeta, self).__init__(residues, centre, chain)
         self.last_orientation = self._RADIUS["CA"]
         self.atoms = []
-        #self.ca_atoms = []
         self.atomtypes = []
         self.residuenumbers = []
         self.ca_atoms = []
