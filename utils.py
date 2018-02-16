@@ -28,18 +28,8 @@ def prepare_forms(data, options):
                     if y["id"] == group:
                         for z in y["segments"]:
                             if z["id"] == motif:
-                                #if structures[x["id"]].atomtypes == "CA":
-                                #structures[x["id"]].atoms = z["coordinates"]
-                                #print z["sequence"][CA_indx]
-                                #print structures[x["id"]][CA_indx].atoms
-                                #print structures[x["id"]][CA_indx].atomtypes
-                                #if structures[x["id"]].atomtypes == "CA":
-                                #structures[x["id"]].atoms = z["coordinates"]
-                                #print structures[x["id"]].atoms[CA_indx]
-                                #print type(z["sequence"]), z["sequence"]
-                                structures[x["id"]].add_3AAseq(z["sequence"][:int(x["length"]/4)]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
+                                structures[x["id"]].add_3AAseq(z["sequence"][::4]) # ONLY TO MAKE IT WORK FOR NOW (4 --> full atom has 4 amino acids)
                                 structures[x["id"]].atoms = z["coordinates"]
-                                #structures[x["id"]].add_3AAseq(z["sequence"])
             else:
                 structures[x["id"]].create_stat_sequence()
                 structures[x["id"]].tilt_y_degrees(x["tilt_y"])
@@ -57,7 +47,6 @@ def prepare_forms(data, options):
                     sslist[-1].invert_direction()
                 if sslist[-1].ref is not None:
                     refsegs[sslist[-1].ref] = sslist[-1].atoms
-
             f = Form(x["id"], sslist)
             f.prepare_coords()
             order = []
@@ -134,7 +123,10 @@ def prepare_template(data, wdir, refsegs):
         with open(os.path.join(wdir, pdbfile), "w") as fd:
             at, rs = 1, 1
             for s in sections:
-                s.align_to(refsegs[s.ref])
+                if s.ref is not None:
+                    s.align_to(refsegs[s.ref][::4])
+                else:
+                    s.align_to(refsegs[s.ref])
                 fd.write(s.to_pdb(at, rs) + "\n")
                 l.add_loop(rs, rs + len(s.guide) - 1)
                 at += len(s.atoms)
