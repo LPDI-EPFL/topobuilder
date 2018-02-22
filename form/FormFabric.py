@@ -2,7 +2,7 @@
 # @Author: bonet
 # @Date:   2016-05-01 12:31:37
 # @Last modified by:   hartevel
-# @Last modified time: 2018-02-22T11:09:40+01:00
+# @Last modified time: 2018-02-22T13:28:02+01:00
 import networkx as nx
 import numpy as np
 import copy
@@ -82,6 +82,9 @@ class FormFabric(object):
         if _CONNECTIVITY:
             data.setdefault("forms", [])
             okforms = []
+            # if type(_LINK_DISTANCE) != int:
+            #     forms = _create_forms_by_specification(layers, _LINK_DISTANCE, _CONNECTIVITY)
+            # else:
             forms = _create_forms_by_specification(layers, _LINK_DISTANCE, _CONNECTIVITY)
             print "\tforms created:", str(len(forms))
             for _,f in enumerate(forms):
@@ -182,7 +185,7 @@ def _search_paths(G, n1, n2):
     print "\t\t\t", len(forms), "folds obtained"
     return forms
 
-def _create_graph( layers, distance ):
+def _create_graph( layers, distance, connectivity ):
     G = nx.Graph()
     for lyr1 in range(len(layers)):
         for lyr2 in range(len(layers)):
@@ -190,8 +193,14 @@ def _create_graph( layers, distance ):
                 for col1 in range(len(layers[lyr1])):
                     for col2 in range(len(layers[lyr2])):
                         if abs(col1 - col2) <= 1:  # Only consecutive columns
-                            G.add_edge(layers[lyr1][col1],
-                                       layers[lyr2][col2], object = SS)
+                            print layers[lyr1][col1], layers[lyr2][col2]
+                            if _CONNECTIVITY:
+                                if layers[lyr1][col1] == connectivity[col1] and layers[lyr2][col2] == connectivity[col2]:
+                                    G.add_edge(layers[lyr1][col1],
+                                               layers[lyr2][col2], object = SS)
+                            else:
+                                G.add_edge(layers[lyr1][col1],
+                                           layers[lyr2][col2], object = SS)
     for lyr1 in layers:
         for lyr2 in layers:
             for sse1 in lyr1:
