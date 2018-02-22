@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-05-01 12:31:37
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 16:58:11
+# @Last modified by:   hartevel
+# @Last modified time: 2018-02-22T11:04:59+01:00
 import networkx as nx
 import numpy as np
 import copy
@@ -29,6 +29,9 @@ class FormFabric(object):
                            "E": data["config"]["default_x_e"] if "default_x_e" in data["config"] else 5.}
         _LINK_DISTANCE  = (np.sqrt(2 * (_DEF_Z_DISTANCE * _DEF_Z_DISTANCE))) + 2.0
         _LINK_DISTANCE  = data["config"]["link_dist"] if "link_dist" in data["config"] else _LINK_DISTANCE
+
+        _CONNECTIVITY   = data["config"]["connectivity"] if "connectivity" in data["config"] else None
+        # _LENGTH_CONNECT = 
 
         layers    = []
         shapelsit = []
