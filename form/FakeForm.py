@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-05-01 14:15:09
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 23:44:18
+# @Last modified by:   hartevel
+# @Last modified time: 2018-02-22T11:13:33+01:00
 
 import copy
 import numpy as np
@@ -27,6 +27,15 @@ class FakeForm(object):
         evals       = [self.edges, self.direct, self.inter]
         self.do     = sum(evals) == len(evals)
 
+    def not_evaluate(self):
+        self.edges  = 1 if self._expected_edges() else 0
+        self.direct = 1 if self._expected_directions() else 0
+        if self.direct == 0:
+            self._alternate_regardless()
+        self.inter  = 1 if self._expected_intersection() else 0
+        evals       = [self.edges, self.direct, self.inter]
+        self.do     = True
+    
     def to_json(self):
         return { "id": self.id, "do": self.do, "up": self.turn,
                  "obeys": {"edges": self.edges,
