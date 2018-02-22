@@ -2,7 +2,7 @@
 # @Author: bonet
 # @Date:   2016-05-01 12:31:37
 # @Last modified by:   hartevel
-# @Last modified time: 2018-02-22T11:04:59+01:00
+# @Last modified time: 2018-02-22T11:09:40+01:00
 import networkx as nx
 import numpy as np
 import copy
@@ -31,7 +31,7 @@ class FormFabric(object):
         _LINK_DISTANCE  = data["config"]["link_dist"] if "link_dist" in data["config"] else _LINK_DISTANCE
 
         _CONNECTIVITY   = data["config"]["connectivity"] if "connectivity" in data["config"] else None
-        # _LENGTH_CONNECT = 
+        # _LENGTH_CONNECT =
 
         layers    = []
         shapelsit = []
@@ -79,21 +79,31 @@ class FormFabric(object):
             fd.write(shapeForm.to_pdb())
         if options.shape: sys.exit(1)
 
-        print "\tevaluating possible combinations"
-        forms = _create_forms(layers, _LINK_DISTANCE)
-        print "\tforms created:", str(len(forms))
-
-        # EVALUATE AND SAVE FORMS FOR CHECKPOINT
-        data.setdefault("forms", [])
-        okforms = []
-        for _, f in enumerate(forms):
-            f.evaluate()
-            if f.do: okforms.append(f)
-            if f.do or not options.hurry:
+        if _CONNECTIVITY:
+            data.setdefault("forms", [])
+            okforms = []
+            forms = _create_forms_by_specification(layers, _LINK_DISTANCE, _CONNECTIVITY)
+            print "\tforms created:", str(len(forms))
+            for _,f in enumerate(forms):
+                data.setdefault("forms", [])
+                f.not_evaluate()
+                okforms.append(f)
                 data["forms"].append(f.to_json())
-            if _ > 0 and _ % 100 == 0:
-                print "\t\t{0} out of {1} evaluated ({2} ok)".format(_, len(forms), len(okforms))
-        print "\t\t{0} evaluated ({1} ok)".format(len(forms), len(okforms))
+        else:
+            forms = _create_forms(layers, _LINK_DISTANCE)
+            print "\tforms created:", str(len(forms))
+
+            # EVALUATE AND SAVE FORMS FOR CHECKPOINT
+            data.setdefault("forms", [])
+            okforms = []
+            for _, f in enumerate(forms):
+                f.evaluate()
+                if f.do: okforms.append(f)
+                if f.do or not options.hurry:
+                    data["forms"].append(f.to_json())
+                if _ > 0 and _ % 100 == 0:
+                    print "\t\t{0} out of {1} evaluated ({2} ok)".format(_, len(forms), len(okforms))
+            print "\t\t{0} evaluated ({1} ok)".format(len(forms), len(okforms))
 
         # GRAPHIC REPRESENTATIONS
         vs = VisualForms(okforms if options.hurry else forms)
@@ -124,6 +134,39 @@ def _create_forms( layers, distance ):
     #     for path in _find_paths(G, node, path_length):
     #         f = FakeForm(copy.deepcopy(path))
     #         forms.append(f)
+    return forms
+
+def _create_forms_by_specification( layers, distance, connectivity ):
+    """Creates all possible forms from first to last node reading the detailed
+    connectivity in the json file."""
+
+    connect = {}
+    for i,lyr in enumerate(layers):
+        l = map(str, lyr)
+        for j,sse in enumerate(l):
+            #layer_elements.append([sse, i, j])
+            insertion_ind = connectivity.index(sse)
+            connect[insertion_ind] = [i, j]
+    connect = list(connect.values())
+
+    path = []
+    for i in range(len(connect)):
+         lyr1, col1 = connect[i][0], connect[i][1]
+         path.append(layers[lyr1][col1])
+
+    print "Building connectivity {}".format(path)
+
+    forms = []
+    if len(connectivity)==2:
+        n1 = path[0]
+        n2 = path[-1]
+        forms.extend(_search_paths(G, n1, n2))
+    else:
+        f = FakeForm(copy.deepcopy(path))
+        forms.append(f)
+        path.reverse()
+        f = FakeForm(copy.deepcopy(path))
+        forms.append(f)
     return forms
 
 def _search_paths(G, n1, n2):
