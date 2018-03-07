@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-05-01 12:30:36
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 22:02:02
+# @Last modified by:   hartevel
+# @Last modified time: 2018-03-07T16:00:45+01:00
 import scipy
 import math
 import os
@@ -13,7 +13,8 @@ from ..RosettaIO.loops.Loops import Loops
 
 class Form(object):
     """docstring for Form"""
-    def __init__(self, identifier, sslist):
+    def __init__(self, identifier, sslist, l_linkers):
+        self.l_linkers = l_linkers
         self.sslist  = sslist
         self.id      = identifier
         self.seq_str = []
@@ -72,9 +73,20 @@ class Form(object):
         #     if x % 2 == inv:
         #         self.sslist[x].struc.invert_direction()
 
-        i = 2
-        self.seq_str.append(("G", "C", "X"))
-        self.inits.append(i)
+        if self.l_linkers:
+            if self.l_linkers[0] > 0:
+                i = self.l_linkers[0]
+                self.inits.append(i)
+                for x in range(self.l_linkers[0]):
+                    self.seq_str.append(("G", "C", "X"))
+            else:
+                i = 2
+                self.inits.append(i)
+                self.seq_str.append(("G", "C", "X"))
+        else:
+            i = 2
+            self.seq_str.append(("G", "C", "X"))
+            self.inits.append(i)
         for x in range(len(self.sslist) - 1):
             if self.sslist[x].sequence is None:
                 self.sslist[x].create_stat_sequence()
@@ -82,8 +94,14 @@ class Form(object):
                 self.seq_str.append((xx, self.sslist[x].get_type(), "S"))
             i += len(self.sslist[x].sequence)
             #d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-1], self.sslist[x + 1].atoms[0])
-            d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-3], self.sslist[x + 1].atoms[1])
-            d = int(math.ceil(d / 3.))
+            if self.l_linkers:
+                if (len(self.sslist)-1) < len(self.l_linkers) or self.l_linkers[0] > 0:
+                    d = self.l_linkers[x+1]
+                else:
+                    d = self.l_linkers[x]
+            else:
+                d = scipy.spatial.distance.euclidean(self.sslist[x].atoms[-3], self.sslist[x + 1].atoms[1])
+                d = int(math.ceil(d / 3.))
             i += d
             for yy in range(d):
                 self.seq_str.append(("G", "C", "X"))
@@ -92,7 +110,11 @@ class Form(object):
                 self.sslist[-1].create_stat_sequence()
         for xx in self.sslist[-1].sequence:
             self.seq_str.append((xx, self.sslist[-1].get_type(), "S"))
-        self.seq_str.append(("G", "C", "X"))
+        if (len(self.sslist)-1) < len(self.l_linkers):
+            for x in range(self.l_linkers[-1]):
+                self.seq_str.append(("G", "C", "X"))
+        else:
+            self.seq_str.append(("G", "C", "X"))
 
     def to_sequence(self):
         return ">" + self.id + "\n" + "".join([x[0] for x in self.seq_str])

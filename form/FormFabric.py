@@ -2,7 +2,7 @@
 # @Author: bonet
 # @Date:   2016-05-01 12:31:37
 # @Last modified by:   hartevel
-# @Last modified time: 2018-02-22T13:28:02+01:00
+# @Last modified time: 2018-03-07T14:38:37+01:00
 import networkx as nx
 import numpy as np
 import copy
@@ -31,7 +31,7 @@ class FormFabric(object):
         _LINK_DISTANCE  = data["config"]["link_dist"] if "link_dist" in data["config"] else _LINK_DISTANCE
 
         _CONNECTIVITY   = data["config"]["connectivity"] if "connectivity" in data["config"] else None
-        # _LENGTH_CONNECT =
+        _LINKER_LENGTH  = data["config"]["l_linkers"] if "l_linkers" in data["config"] else None
 
         layers    = []
         shapelsit = []
@@ -73,7 +73,7 @@ class FormFabric(object):
                 layers[-1].append(secstr)
                 shapelsit.append(vs)
 
-        shapeForm = Form("shapesketch", shapelsit)
+        shapeForm = Form("shapesketch", shapelsit, _LINKER_LENGTH)
         shapeForm.prepare_coords()
         with open(os.path.join(options.outdir, "shapesketch.pdb"), "w") as fd:
             fd.write(shapeForm.to_pdb())
