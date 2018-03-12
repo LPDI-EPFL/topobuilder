@@ -2,7 +2,7 @@
 # @Author: bonet
 # @Date:   2016-05-01 12:31:37
 # @Last modified by:   hartevel
-# @Last modified time: 2018-03-07T14:38:37+01:00
+# @Last modified time: 2018-03-12T13:09:46+01:00
 import networkx as nx
 import numpy as np
 import copy
@@ -79,7 +79,10 @@ class FormFabric(object):
             fd.write(shapeForm.to_pdb())
         if options.shape: sys.exit(1)
 
+        if _LINKER_LENGTH:
+            print "Using G linkers of sizes: {}".format(_LINKER_LENGTH)
         if _CONNECTIVITY:
+            print "Building connectivity {}".format(_CONNECTIVITY)
             data.setdefault("forms", [])
             okforms = []
             # if type(_LINK_DISTANCE) != int:
@@ -93,7 +96,7 @@ class FormFabric(object):
                 okforms.append(f)
                 data["forms"].append(f.to_json())
         else:
-            forms = _create_forms(layers, _LINK_DISTANCE)
+            forms = _create_forms(layers, _LINK_DISTANCE, _CONNECTIVITY)
             print "\tforms created:", str(len(forms))
 
             # EVALUATE AND SAVE FORMS FOR CHECKPOINT
@@ -114,8 +117,8 @@ class FormFabric(object):
 
         data["config"]["status"] = 3
 
-def _create_forms( layers, distance ):
-    G = _create_graph(layers, distance)
+def _create_forms( layers, distance, connectivity ):
+    G = _create_graph(layers, distance, connectivity)
     # path_length = len( G.nodes() ) - 1
     forms = []
 
@@ -157,7 +160,7 @@ def _create_forms_by_specification( layers, distance, connectivity ):
          lyr1, col1 = connect[i][0], connect[i][1]
          path.append(layers[lyr1][col1])
 
-    print "Building connectivity {}".format(path)
+    #print "Building connectivity {}".format(path)
 
     forms = []
     if len(connectivity)==2:
@@ -193,8 +196,7 @@ def _create_graph( layers, distance, connectivity ):
                 for col1 in range(len(layers[lyr1])):
                     for col2 in range(len(layers[lyr2])):
                         if abs(col1 - col2) <= 1:  # Only consecutive columns
-                            print layers[lyr1][col1], layers[lyr2][col2]
-                            if _CONNECTIVITY:
+                            if connectivity:
                                 if layers[lyr1][col1] == connectivity[col1] and layers[lyr2][col2] == connectivity[col2]:
                                     G.add_edge(layers[lyr1][col1],
                                                layers[lyr2][col2], object = SS)
