@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-04-28 15:03:30
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-03 14:28:22
+# @Last modified by:   hartevel
+# @Last modified time: 2018-03-12T09:36:44+01:00
 import os
 import copy
 import numpy as np
@@ -47,7 +47,10 @@ def prepare_forms(data, options):
                     sslist[-1].invert_direction()
                 if sslist[-1].ref is not None:
                     refsegs[sslist[-1].ref] = sslist[-1].atoms
-            f = Form(x["id"], sslist)
+            if "l_linkers" not in data["config"]: #data["config"]["l_linkers"] = None
+                f = Form(x["id"], sslist, None)
+            else:
+                f = Form(x["id"], sslist, data["config"]["l_linkers"])
             f.prepare_coords()
             order = []
             for mtf in data["motifs"]:

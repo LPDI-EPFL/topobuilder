@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-05-01 12:31:37
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 16:58:11
+# @Last modified by:   hartevel
+# @Last modified time: 2018-03-12T13:09:46+01:00
 import networkx as nx
 import numpy as np
 import copy
@@ -29,6 +29,9 @@ class FormFabric(object):
                            "E": data["config"]["default_x_e"] if "default_x_e" in data["config"] else 5.}
         _LINK_DISTANCE  = (np.sqrt(2 * (_DEF_Z_DISTANCE * _DEF_Z_DISTANCE))) + 2.0
         _LINK_DISTANCE  = data["config"]["link_dist"] if "link_dist" in data["config"] else _LINK_DISTANCE
+
+        _CONNECTIVITY   = data["config"]["connectivity"] if "connectivity" in data["config"] else None
+        _LINKER_LENGTH  = data["config"]["l_linkers"] if "l_linkers" in data["config"] else None
 
         layers    = []
         shapelsit = []
@@ -70,27 +73,43 @@ class FormFabric(object):
                 layers[-1].append(secstr)
                 shapelsit.append(vs)
 
-        shapeForm = Form("shapesketch", shapelsit)
+        shapeForm = Form("shapesketch", shapelsit, _LINKER_LENGTH)
         shapeForm.prepare_coords()
         with open(os.path.join(options.outdir, "shapesketch.pdb"), "w") as fd:
             fd.write(shapeForm.to_pdb())
         if options.shape: sys.exit(1)
 
-        print "\tevaluating possible combinations"
-        forms = _create_forms(layers, _LINK_DISTANCE)
-        print "\tforms created:", str(len(forms))
-
-        # EVALUATE AND SAVE FORMS FOR CHECKPOINT
-        data.setdefault("forms", [])
-        okforms = []
-        for _, f in enumerate(forms):
-            f.evaluate()
-            if f.do: okforms.append(f)
-            if f.do or not options.hurry:
+        if _LINKER_LENGTH:
+            print "Using G linkers of sizes: {}".format(_LINKER_LENGTH)
+        if _CONNECTIVITY:
+            print "Building connectivity {}".format(_CONNECTIVITY)
+            data.setdefault("forms", [])
+            okforms = []
+            # if type(_LINK_DISTANCE) != int:
+            #     forms = _create_forms_by_specification(layers, _LINK_DISTANCE, _CONNECTIVITY)
+            # else:
+            forms = _create_forms_by_specification(layers, _LINK_DISTANCE, _CONNECTIVITY)
+            print "\tforms created:", str(len(forms))
+            for _,f in enumerate(forms):
+                data.setdefault("forms", [])
+                f.not_evaluate()
+                okforms.append(f)
                 data["forms"].append(f.to_json())
-            if _ > 0 and _ % 100 == 0:
-                print "\t\t{0} out of {1} evaluated ({2} ok)".format(_, len(forms), len(okforms))
-        print "\t\t{0} evaluated ({1} ok)".format(len(forms), len(okforms))
+        else:
+            forms = _create_forms(layers, _LINK_DISTANCE, _CONNECTIVITY)
+            print "\tforms created:", str(len(forms))
+
+            # EVALUATE AND SAVE FORMS FOR CHECKPOINT
+            data.setdefault("forms", [])
+            okforms = []
+            for _, f in enumerate(forms):
+                f.evaluate()
+                if f.do: okforms.append(f)
+                if f.do or not options.hurry:
+                    data["forms"].append(f.to_json())
+                if _ > 0 and _ % 100 == 0:
+                    print "\t\t{0} out of {1} evaluated ({2} ok)".format(_, len(forms), len(okforms))
+            print "\t\t{0} evaluated ({1} ok)".format(len(forms), len(okforms))
 
         # GRAPHIC REPRESENTATIONS
         vs = VisualForms(okforms if options.hurry else forms)
@@ -98,8 +117,8 @@ class FormFabric(object):
 
         data["config"]["status"] = 3
 
-def _create_forms( layers, distance ):
-    G = _create_graph(layers, distance)
+def _create_forms( layers, distance, connectivity ):
+    G = _create_graph(layers, distance, connectivity)
     # path_length = len( G.nodes() ) - 1
     forms = []
 
@@ -123,6 +142,39 @@ def _create_forms( layers, distance ):
     #         forms.append(f)
     return forms
 
+def _create_forms_by_specification( layers, distance, connectivity ):
+    """Creates all possible forms from first to last node reading the detailed
+    connectivity in the json file."""
+
+    connect = {}
+    for i,lyr in enumerate(layers):
+        l = map(str, lyr)
+        for j,sse in enumerate(l):
+            #layer_elements.append([sse, i, j])
+            insertion_ind = connectivity.index(sse)
+            connect[insertion_ind] = [i, j]
+    connect = list(connect.values())
+
+    path = []
+    for i in range(len(connect)):
+         lyr1, col1 = connect[i][0], connect[i][1]
+         path.append(layers[lyr1][col1])
+
+    #print "Building connectivity {}".format(path)
+
+    forms = []
+    if len(connectivity)==2:
+        n1 = path[0]
+        n2 = path[-1]
+        forms.extend(_search_paths(G, n1, n2))
+    else:
+        f = FakeForm(copy.deepcopy(path))
+        forms.append(f)
+        path.reverse()
+        f = FakeForm(copy.deepcopy(path))
+        forms.append(f)
+    return forms
+
 def _search_paths(G, n1, n2):
     forms = []
     print "\t\t", n1.desc, "-->", n2.desc
@@ -136,7 +188,7 @@ def _search_paths(G, n1, n2):
     print "\t\t\t", len(forms), "folds obtained"
     return forms
 
-def _create_graph( layers, distance ):
+def _create_graph( layers, distance, connectivity ):
     G = nx.Graph()
     for lyr1 in range(len(layers)):
         for lyr2 in range(len(layers)):
@@ -144,8 +196,13 @@ def _create_graph( layers, distance ):
                 for col1 in range(len(layers[lyr1])):
                     for col2 in range(len(layers[lyr2])):
                         if abs(col1 - col2) <= 1:  # Only consecutive columns
-                            G.add_edge(layers[lyr1][col1],
-                                       layers[lyr2][col2], object = SS)
+                            if connectivity:
+                                if layers[lyr1][col1] == connectivity[col1] and layers[lyr2][col2] == connectivity[col2]:
+                                    G.add_edge(layers[lyr1][col1],
+                                               layers[lyr2][col2], object = SS)
+                            else:
+                                G.add_edge(layers[lyr1][col1],
+                                           layers[lyr2][col2], object = SS)
     for lyr1 in layers:
         for lyr2 in layers:
             for sse1 in lyr1:
