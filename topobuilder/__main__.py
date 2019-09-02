@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-04-28 12:35:27
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 23:59:32
+# @Last modified by:   bonet
+# @Last modified time: 30-Aug-2019
 
 import argparse
 import os
@@ -28,7 +28,7 @@ def get_options(*args, **kwds):
                         help='Print only a shape of the final sketch', default=False)
     parser.add_argument('-hurry', dest='hurry', action='store_true',
                         help='Print only folds fullfilling all constraints', default=False)
-    parser.add_argument('-user', dest='user', action='store', help='castor username',
+    parser.add_argument('-user', dest='user', action='store', help='cluster username',
                         default = getpass.getuser())
     parser.add_argument('-show',  dest='show',  action='store_true',
                         help='Show mode (requires keypress)', default=False)

@@ -1,0 +1,28 @@
+Metadata-Version: 1.1
+Name: topobuilder
+Version: 0+untagged.43.g13ec7d5.dirty
+Summary: Automatic Building of Functional de novo Topologies
+Home-page: https://github.com/jaumebonet/RosettaSilentToolbox
+Author: Jaume Bonet
+Author-email: jaume.bonet@gmail.com
+License: MIT
+Project-URL: Source, https://github.com/lpdi-epfl/topobuilder
+Project-URL: Tracker, https://github.com/lpdi-epfl/topobuilder/issues
+Description: TopoBuilder
+        ===========
+        
+        TopoBuilder is a **Python2 only** library for the construction of tailored protein scaffolds around
+        functional structural motifs of interest.
+        
+        
+Keywords: development
+Platform: UNIX
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Unix
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics

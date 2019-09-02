@@ -1,0 +1,3 @@
+include versioneer.py
+include topobuilder/_version.py
+include REQUIREMENTS
