@@ -227,6 +227,12 @@ The main files of interest are:
   and then call ``submiter.sbatch`` to execute ``funfoldes.xml`` in the SLURM queue. ``submiter.sbatch`` should be checked and
   modified, if needed, to properly fit the configuration of each cluster.
 
+The last step would be moving into the folder of the topology/ies of interest and execute:
+
+.. code-block:: bash
+
+  nohup bash run.sh &
+
 
 .. _PDB: https://www.rcsb.org/
 .. _FunFolDes: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006623

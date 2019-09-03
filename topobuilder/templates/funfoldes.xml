@@ -2,7 +2,7 @@
 
   <SCOREFXNS>
     # A weight is added to small-range hbonds to favor helix formation.
-    <ScoreFunction name="fullatom" weights="talaris2014">
+    <ScoreFunction name="fullatom" weights="ref2015">
       <Reweight scoretype="hbond_sr_bb"          weight="1.6" />
       <Reweight scoretype="atom_pair_constraint" weight="1.6" />
     </ScoreFunction>
@@ -39,14 +39,12 @@
     <ProteinResidueSelector name="PROTEIN" />
     <Not name="!PROTEIN" selector="PROTEIN" />
 
-    ## TEMPLATE (1kx8)
     ### usable template
-    <Chain name="template" resnums="A" />
+    <Chain name="template" chains="A" />
     <Not name="!template" selector="template" />
     ### insertion point
     <Index name="insertion" resnums="{0}" />
 
-    ## MOTIF (3ixt)
     ### motif
     <Index name="motif" resnums="{1}" />
 
