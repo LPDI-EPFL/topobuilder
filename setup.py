@@ -54,7 +54,8 @@ setup(
     packages=find_packages(exclude=['docs', 'demo', 'sphinx-docs']),
     include_package_data=True,
     package_data={
-        'topobuilder': ['REQUIREMENTS', ]
+        'topobuilder': ['REQUIREMENTS',
+                        'topobuilder/templates/*']
     },
     cmdclass=versioneer.get_cmdclass()
 )

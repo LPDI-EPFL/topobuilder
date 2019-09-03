@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-05-01 12:30:36
-# @Last modified by:   hartevel
-# @Last modified time: 2018-03-12T13:03:13+01:00
+# @Last modified by:   bonet
+# @Last modified time: 03-Sep-2019
 import scipy
 import math
 import os
@@ -22,6 +22,7 @@ class Form(object):
         self.const   = ConstraintSet()
         self.loops   = Loops()
         self.order   = []
+        self.insert  = []
 
     def set_order(self, data):
         order = {}
@@ -118,6 +119,22 @@ class Form(object):
                 self.seq_str.append(("G", "C", "X"))
         else:
             self.seq_str.append(("G", "C", "X"))
+
+        pre=True
+        self.insert=[]
+        tmp = []
+        ins1 = '<Prepend anchor_atom="N" anchor_rsd="{}" connecting_atom="C" jump="false" repeat="1" resname="GLY"/>'
+        ins2 = '<Insert anchor_atom="C" anchor_rsd="{}" connecting_atom="N" jump="false" repeat="1" resname="GLY"/>'
+        for i, x in enumerate(self.seq_str):
+            if x[0] != 'G':
+                pre = False
+            if x[0] == 'G':
+                if not pre:
+                    self.insert.append(ins2.format(i))
+                else:
+                    tmp.append(ins1.format(i + 1))
+        self.insert = tmp[::-1] + self.insert
+
 
     def to_sequence(self):
         return ">" + self.id + "\n" + "".join([x[0] for x in self.seq_str])

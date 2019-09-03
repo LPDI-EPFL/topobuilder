@@ -1,0 +1,182 @@
+<ROSETTASCRIPTS>
+
+  <SCOREFXNS>
+    # A weight is added to small-range hbonds to favor helix formation.
+    <ScoreFunction name="fullatom" weights="talaris2014">
+      <Reweight scoretype="hbond_sr_bb"          weight="1.6" />
+      <Reweight scoretype="atom_pair_constraint" weight="1.6" />
+    </ScoreFunction>
+  </SCOREFXNS>
+
+  <RESIDUE_SELECTORS>
+    # Standard FFL ResidueSelectors.
+    <ResiduePDBInfoHasLabel name="MOTIF"     property="MOTIF" />
+    <Not                    name="!MOTIF"    selector="MOTIF" />
+    <ResiduePDBInfoHasLabel name="TEMPLATE"  property="TEMPLATE" />
+    <Not                    name="!TEMPLATE" selector="TEMPLATE" />
+    <ResiduePDBInfoHasLabel name="CONTEXT"   property="CONTEXT" />
+    <Not                    name="!CONTEXT"  selector="CONTEXT" />
+    <ResiduePDBInfoHasLabel name="FLEXIBLE"  property="FLEXIBLE" />
+    <Not                    name="!FLEXIBLE" selector="FLEXIBLE" />
+    <ResiduePDBInfoHasLabel name="HOTSPOT"   property="HOTSPOT" />
+    <Not                    name="!HOTSPOT"  selector="HOTSPOT" />
+    <ResiduePDBInfoHasLabel name="COLDSPOT"  property="COLDSPOT" />
+    <Not                    name="!COLDSPOT" selector="COLDSPOT" />
+
+    <And name="FLEXIBLE_AND_MOTIF" selectors="FLEXIBLE,MOTIF" />
+    <And name="COLDSPOT_AND_MOTIF" selectors="COLDSPOT,MOTIF" />
+    <And name="HOTSPOT_AND_MOTIF"  selectors="HOTSPOT,MOTIF" />
+
+    <Or name="COLDSPOT_OR_TEMPLATE"                        selectors="COLDSPOT,TEMPLATE" />
+    <Or name="FLEXIBLE_OR_TEMPLATE"                        selectors="FLEXIBLE,TEMPLATE" />
+    <Or name="CONTEXT_OR_FLEXIBLE_OR_TEMPLATE"             selectors="CONTEXT,FLEXIBLE,TEMPLATE" />
+    <Or name="COLDSPOT_OR_FLEXIBLE_OR_TEMPLATE"            selectors="COLDSPOT,FLEXIBLE,TEMPLATE" />
+    <Or name="COLDSPOT_OR_CONTEXT_OR_FLEXIBLE_OR_TEMPLATE" selectors="COLDSPOT,CONTEXT,FLEXIBLE,TEMPLATE" />
+    <Or name="HOTSPOT_OR_CONTEXT"                          selectors="HOTSPOT,CONTEXT" />
+    <And name="HOTSPOT_OR_CONTEXT_AND_!FLEXIBLE"           selectors="HOTSPOT_OR_CONTEXT,!FLEXIBLE" />
+    <And name="FLEXIBLE_AND_!COLDSPOT"                     selectors="FLEXIBLE,!COLDSPOT" />
+
+    <ProteinResidueSelector name="PROTEIN" />
+    <Not name="!PROTEIN" selector="PROTEIN" />
+
+    ## TEMPLATE (1kx8)
+    ### usable template
+    <Chain name="template" resnums="A" />
+    <Not name="!template" selector="template" />
+    ### insertion point
+    <Index name="insertion" resnums="{0}" />
+
+    ## MOTIF (3ixt)
+    ### motif
+    <Index name="motif" resnums="{1}" />
+
+    ### Design
+    <Chain name="design" chains="{2}" />
+  </RESIDUE_SELECTORS>
+
+  <MOVE_MAP_FACTORIES>
+    # Standard FFL MoveMap
+    <MoveMapFactory name="FFLSTANDARD_MOVEMAP" bb="false" chi="false" nu="false" branches="false" jumps="false" >
+      <Backbone enable="true" residue_selector="FLEXIBLE_OR_TEMPLATE" />
+      <Chi      enable="true" residue_selector="COLDSPOT_OR_FLEXIBLE_OR_TEMPLATE" />
+    </MoveMapFactory>
+    <MoveMapFactory name="FFLBINDERPACK_MOVEMAP" bb="false" chi="false" nu="false" branches="false" jumps="false" >
+      <Backbone enable="true" residue_selector="CONTEXT_OR_FLEXIBLE_OR_TEMPLATE" />
+      <Chi      enable="true" residue_selector="COLDSPOT_OR_FLEXIBLE_OR_TEMPLATE" />
+    </MoveMapFactory>
+    <MoveMapFactory name="FFLBINDERPACKMIN_MOVEMAP" bb="false" chi="false" nu="false" branches="false" jumps="false" >
+      <Backbone enable="true" residue_selector="CONTEXT_OR_FLEXIBLE_OR_TEMPLATE" />
+      <Chi      enable="true" residue_selector="COLDSPOT_OR_CONTEXT_OR_FLEXIBLE_OR_TEMPLATE" />
+    </MoveMapFactory>
+  </MOVE_MAP_FACTORIES>
+
+  <TASKOPERATIONS>
+    <OperateOnResidueSubset name="FFLMOTIF_TASKOP" selector="HOTSPOT_OR_CONTEXT_AND_!FLEXIBLE" >
+      <PreventRepackingRLT/>
+    </OperateOnResidueSubset>
+    <OperateOnResidueSubset name="FFLFLEX_TASKOP" selector="FLEXIBLE_AND_!COLDSPOT" >
+      <RestrictToRepackingRLT/>
+    </OperateOnResidueSubset>
+    <OperateOnResidueSubset name="FFLTEMPLATE_TASKOP" selector="COLDSPOT_OR_TEMPLATE" >
+      <DisallowIfNonnativeRLT disallow_aas="C" />
+    </OperateOnResidueSubset>
+    <OperateOnResidueSubset name="FFLEXTRA_TASKOP" selector="COLDSPOT_OR_TEMPLATE" >
+      <ExtraRotamersGenericRLT ex1="1" ex2="1" />
+    </OperateOnResidueSubset>
+    <NoRepackDisulfides name="FFLTEMPLATE_DISULFIDES" />
+  </TASKOPERATIONS>
+
+  <FILTERS> # (confidence=0 -> to score not to filter)
+
+    # Globals
+    <RmsdFromResidueSelectorFilter name="driftRMSD" reference_name="folded_pose"
+       reference_selector="design" query_selector="design" confidence="0" />
+    <RmsdFromResidueSelectorFilter name="finalRMSD" reference_name="template_pose"
+      reference_selector="template" query_selector="design" confidence="0" />
+    <BuriedUnsatHbonds name="BUNS" jump_number="0" confidence="0"
+      task_operations="FFLMOTIF_TASKOP,FFLFLEX_TASKOP,FFLTEMPLATE_TASKOP" />
+    <PackStat name="packstat" repeats="5" chain="1" confidence="0" />
+    <ScorePoseSegmentFromResidueSelectorFilter name="design_score" confidence="0"
+      residue_selector="design" scorefxn="fullatom" />
+  </FILTERS>
+
+  <MOVERS>
+    ## CLEAN STRUCTURE:
+    <DeleteRegionMover name="delete" residue_selector="!template" />
+
+    ## PREPROCESSING: STORING INPUT STRUCTURES
+    <SavePoseMover name="saveFlded" reference_name="folded_pose" restore_pose="0" />
+    <SavePoseMover name="saveTmpl"  reference_name="template_pose" restore_pose="0" />
+    # ** SavePoseMover used like this does not need to be called during PROTOCOL to work.
+    <SavePoseMover name="readMotif" reference_name="motif_pose" pdb_file="{3}" />
+
+    ## PREPROCESSING: MAKING FRAGMENTS
+    <StructFragmentMover name="makeFrags" prefix="frags"
+      small_frag_file="frags.200.3mers" large_frag_file="frags.200.9mers"
+    />
+
+    ## PREPROCESSING: CONSTRAINTS
+    <AddConstraints name="foldingCST" >
+      <AtomPairConstraintGenerator name="atompairCST1" sd="3.0" ca_only="true"
+        use_harmonic="true" unweighted="true" min_seq_sep="6" max_distance="40" residue_selector="template"
+      />
+    </AddConstraints>
+
+    # MAIN: NUBINITIO FOLDING
+    <NubInitioMover name="FFL" fragments_id="frags" template_motif_selector="insertion"
+      rmsd_threshold="5" fullatom_scorefxn="fullatom" >
+      <Nub reference_name="motif_pose" residue_selector="motif">
+      </Nub>
+    </NubInitioMover>
+
+    # POSTPROCESSING: CONSTRAINTS
+    <AddConstraints name="designCST" >
+      <AtomPairConstraintGenerator name="atompairCST2" sd="1" ca_only="true"
+        use_harmonic="true" unweighted="true" min_seq_sep="6" max_distance="40" residue_selector="design"
+      />
+    </AddConstraints>
+    <ClearConstraintsMover name="clearCST" />
+
+    # POSTPROCESSING: SEQUENCE CONSTRAINTS
+    <AddHelixSequenceConstraints name="compositionCST" />
+
+    # POSTPROCESSING: DESING
+    <FastDesign name="DesignRelax" scorefxn="fullatom" clear_designable_residues="true"
+      task_operations="FFLMOTIF_TASKOP,FFLFLEX_TASKOP,FFLTEMPLATE_TASKOP"
+      repeats="3" delete_virtual_residues_after_FastRelax="true"
+      movemap_factory="FFLSTANDARD_MOVEMAP" >
+    </FastDesign>
+
+    ## VERBOSE
+    <DisplayPoseLabelsMover name="showDesign" movemap_factory="FFLSTANDARD_MOVEMAP"
+      task_operations="FFLMOTIF_TASKOP,FFLFLEX_TASKOP,FFLTEMPLATE_TASKOP" />
+
+  </MOVERS>
+
+  <PROTOCOLS>
+    # PREPROCESSING:
+    <Add mover="delete"     />
+    <Add mover="saveTmpl"   />
+    <Add mover="makeFrags"  />
+    <Add mover="foldingCST" />
+    # MAIN
+    <Add mover="FFL"        />
+    <Add mover="showDesign" />
+    <Add mover="clearCST"   />
+    <Add mover="saveFlded"  />
+    # POSTPROCESSING
+    <Add mover="designCST"      />
+    <Add mover="compositionCST" />
+    <Add mover="DesignRelax"    />
+    <Add mover="clearCST"       />
+    # EVALUATION
+    <Add filter="driftRMSD"    />
+    <Add filter="finalRMSD"    />
+    <Add filter="BUNS"         />
+    <Add filter="packstat"     />
+    <Add filter="design_score" />
+  </PROTOCOLS>
+
+  <OUTPUT scorefxn="fullatom"/>
+
+</ROSETTASCRIPTS>

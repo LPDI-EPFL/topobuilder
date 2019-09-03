@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-04-28 15:03:30
-# @Last modified by:   hartevel
-# @Last modified time: 2018-03-12T09:36:44+01:00
+# @Last modified by:   bonet
+# @Last modified time: 03-Sep-2019
 import os
+import shutil
 import copy
 import numpy as np
 from .virtual.VirtualReverse import VirtualReverse
@@ -61,37 +62,70 @@ def prepare_forms(data, options):
             f.make_constraints()
             wdir = os.path.join(data["config"]["name"], x["id"])
             if not os.path.isdir(wdir): os.mkdir(wdir)
-            seqF, ssF, pdbF, loopF, cnstF = name_files(wdir)
-            with open(seqF, "w") as fd: fd.write(f.to_sequence())
+            seqF, ssF, pdbF, rstF, loopF, cnstF = name_files(wdir)
+            with open(seqF, "w") as fd: fd.write(f.to_sequence() + '\n')
             with open(ssF, "w") as fd: fd.write(f.to_psipred_ss())
             with open(pdbF, "w") as fd: fd.write(f.to_pdb())
             with open(loopF, "w") as fd: fd.write(str(f.loops))
             with open(cnstF, "w") as fd: fd.write(str(f.const))
 
-            tmplF, tloF, chain, binders = prepare_template(data, wdir, refsegs)
+            tmplF, tloF, chain, binders, mEdge = prepare_template(data, wdir, refsegs)
 
+
+            # CREATE FILES
             tpl = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
-            with open(os.path.join(tpl, "ffl.commands")) as fd:
-                fflcom = "".join(fd.readlines())
-            fflcom = fflcom.format(tmplF, chain, tloF,
-                                   " ".join([str(j) for j in f.order]),
-                                   os.path.relpath(seqF, wdir),
-                                   os.path.relpath(ssF, wdir),
-                                   os.path.relpath(loopF, wdir),
-                                   os.path.relpath(cnstF, wdir),
-                                   100, 2 if "H" in f else 0, 2 if "E" in f else 0)
-            with open(os.path.join(wdir, "build.commands"), "w") as fd:
-                fd.write(fflcom)
-                if len(binders) > 0:
-                    fd.write("-fold_from_loops:target:binders {0}".format(binders))
+            bsh = open(os.path.join(wdir, 'run.sh'), "w")
+
+            # Copy motif file
+            shutil.copy(os.path.abspath(data["motifs"][0]["pdbfile"]),
+                        os.path.join(wdir, os.path.split(data["motifs"][0]["pdbfile"])[-1]))
+
+            # Copy score file for fragment creation.
+            shutil.copy(os.path.join(tpl, 'scores.cfg'), os.path.join(wdir, 'scores.cfg'))
+            # Create make_fragments script
+            with open(os.path.join(tpl, 'make_fragments.xml')) as fd:
+                mkfrags = "".join(fd.readlines())
+            mkfrags = mkfrags.format('\n'.join(f.insert))
+            with open(os.path.join(wdir, 'make_fragments.xml'), "w") as fd:
+                fd.write(mkfrags)
+            cmd1 = '{} -parser:protocol make_fragments.xml -in:file:s {} -parser:script_vars vall={}\n'
+            bsh.write(cmd1.format(data["config"]["rbin"], os.path.split(pdbF)[-1], data["config"]["vall"]))
+
+            # Create FunFolDes script
+            with open(os.path.join(tpl, 'funfoldes.xml')) as fd:
+                funfoldes = "".join(fd.readlines())
+            funfoldes = funfoldes.format(
+                ','.join(['{0[0]}-{0[1]}'.format(_) for _ in f.loops.loops]),
+                ','.join(['{0[0]}{1}-{0[1]}{1}'.format(_, mEdge.chain[i_]) for i_, _ in enumerate(mEdge.loops)]),
+                mEdge.chain[0],
+                os.path.split(data["motifs"][0]["pdbfile"])[-1]
+            )
+            with open(os.path.join(wdir, 'funfoldes.xml'), "w") as fd:
+                fd.write(funfoldes)
+
+            # with open(os.path.join(tpl, "ffl.commands")) as fd:
+            #     fflcom = "".join(fd.readlines())
+            # fflcom = fflcom.format(tmplF, chain, tloF,
+            #                        " ".join([str(j) for j in f.order]),
+            #                        os.path.relpath(seqF, wdir),
+            #                        os.path.relpath(ssF, wdir),
+            #                        os.path.relpath(loopF, wdir),
+            #                        os.path.relpath(cnstF, wdir),
+            #                        100, 2 if "H" in f else 0, 2 if "E" in f else 0)
+            # with open(os.path.join(wdir, "build.commands"), "w") as fd:
+            #     fd.write(fflcom)
+            #     if len(binders) > 0:
+            #         fd.write("-fold_from_loops:target:binders {0}".format(binders))
 
             with open(os.path.join(tpl, "castor.submiter")) as fd:
                 castor = "".join(fd.readlines())
-            castor = castor.format(options.user,
-                                   data["config"]["name"].replace("/", "_") + "_" + x["id"],
-                                   "build.commands", 200)
+            castor = castor.format(options.user, data["config"]["name"].replace("/", "_") + "_" + x["id"],
+                                    200, data["config"]["rbin"])
             with open(os.path.join(wdir, "submiter.sbatch"), "w") as fd:
                 fd.write(castor)
+            bsh.write('sbatch submiter.sbatch\n')
+
+            bsh.close()
 
     data["config"]["status"] = 4
 
@@ -100,6 +134,7 @@ def name_files(wdir):
     return (os.path.join(wdir, "sequence.fa"),
             os.path.join(wdir, "structure.ss2"),
             os.path.join(wdir, "sketch.pdb"),
+            os.path.join(wdir, "sketch_0001.pdb"),
             os.path.join(wdir, "design.loops"),
             os.path.join(wdir, "constraints.cst"))
 
@@ -113,6 +148,7 @@ def prepare_template(data, wdir, refsegs):
         l = Loops()
         for sgm in data["motifs"][0]["segments"]:
             l.add_loop(sgm["ini"], sgm["end"])
+            l.chain.append(data["motifs"][0]["chain"])
         loopfile = os.path.join(data["config"]["name"], "target.loops")
         with open(loopfile, "w") as fd: fd.write(str(l))
         loopfile = os.path.relpath(loopfile, wdir)
@@ -143,7 +179,7 @@ def prepare_template(data, wdir, refsegs):
         loopfile = "target.loops"
         with open(os.path.join(wdir, loopfile), "w") as fd: fd.write(str(l))
 
-    return pdbfile, loopfile, chain, binders
+    return pdbfile, loopfile, chain, binders, l
 
 
 def make_html(data, htmlfile):

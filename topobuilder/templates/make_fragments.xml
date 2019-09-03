@@ -1,0 +1,13 @@
+<ROSETTASCRIPTS>
+ <MOVERS>
+  <PeptideStubMover name="add_loops_ffd" reset="false">
+   {}
+  </PeptideStubMover>
+  <StructFragmentMover name="makeFrags_ffd" prefix="frags" vall_file="%%vall%%" output_frag_files="1"
+    large_frag_file="frags.200.9mers" small_frag_file="frags.200.3mers" frag_weight_file="scores.cfg"/>
+ </MOVERS>
+ <PROTOCOLS>
+  <Add mover="add_loops_ffd"/>
+  <Add mover="makeFrags_ffd"/>
+ </PROTOCOLS>
+</ROSETTASCRIPTS>

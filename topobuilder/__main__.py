@@ -2,7 +2,7 @@
 # @Author: bonet
 # @Date:   2016-04-28 12:35:27
 # @Last modified by:   bonet
-# @Last modified time: 30-Aug-2019
+# @Last modified time: 02-Sep-2019
 
 import argparse
 import os
@@ -66,7 +66,7 @@ def non_interactive(options):
         if options.show: raw_input("PROCESS MOTIFS. Press for next...")
 
         # FORM COMBINATORIAL -> STATUS = 3
-        print "Building and evaluating convinations"
+        print "Building and evaluating combinations"
         FormFabric().build(json_data, options)
         topoIO.print_json(json_data, options.chkpoint)
         htmlfile = os.path.join(json_data["config"]["name"], "combinations.html")

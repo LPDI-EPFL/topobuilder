@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-04-28 13:49:48
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-03 14:15:04
+# @Last modified by:   bonet
+# @Last modified time: 03-Sep-2019
 import json
 import numpy as np
 
@@ -13,6 +13,8 @@ def load_json(filename):
     if "config" not in data: raise AttributeError("config info is mandatory")
     if "name" not in data["config"]: raise AttributeError("config 'name' is mandatory")
     if "status" not in data["config"]: data["config"]["status"] = 0
+    if "vall" not in data["config"]: raise AttributeError("provide the path to the vall database to create the fragments")
+    if "rbin" not in data["config"]: raise AttributeError("provide the path to the rosetta binaries as 'rbin'")
     return data
 
 
