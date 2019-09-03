@@ -98,7 +98,8 @@ def prepare_forms(data, options):
                 ','.join(['{0[0]}-{0[1]}'.format(_) for _ in f.loops.loops]),
                 ','.join(['{0[0]}{1}-{0[1]}{1}'.format(_, mEdge.chain[i_]) for i_, _ in enumerate(mEdge.loops)]),
                 mEdge.chain[0],
-                os.path.split(data["motifs"][0]["pdbfile"])[-1]
+                os.path.split(data["motifs"][0]["pdbfile"])[-1],
+                100
             )
             with open(os.path.join(wdir, 'funfoldes.xml'), "w") as fd:
                 fd.write(funfoldes)

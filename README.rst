@@ -252,6 +252,9 @@ The last step would be moving into the folder of the topology/ies of interest an
 
   nohup bash run.sh &
 
+After FunFolDes_ has run, a folder ``out`` will be generated with 20000 structures separated in 200 Rosetta silent files. This number can be altered
+by altering ``#SBATCH --array`` and ``-nstruct`` in ``submiter.sbatch``.
+
 
 .. _PDB: https://www.rcsb.org/
 .. _FunFolDes: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006623
