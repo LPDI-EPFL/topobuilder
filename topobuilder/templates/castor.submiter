@@ -9,6 +9,6 @@
 #SBATCH --error=/scratch/{0}/logs/output.%A_%a.err
 
 mkdir -p out
-srun {3} -parser:protocol funfoldes.xml -in:file:s sketch_0001.pdb -out:prefix {1}_${{SLURM_ARRAY_TASK_ID}} -out:file:silent out/{1}_${{SLURM_ARRAY_TASK_ID}}
+srun {3} -parser:protocol funfoldes.xml -in:file:s sketch_0001.pdb -out:prefix {1}_${{SLURM_ARRAY_TASK_ID}} -out:file:silent out/{1}_${{SLURM_ARRAY_TASK_ID}} -out:mute protocols.abinitio protocols.abinitio.foldconstraints
 fi
 echo "CASTOR: RUN FINISHED"

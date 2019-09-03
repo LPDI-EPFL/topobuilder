@@ -132,6 +132,9 @@ last top field). Additional parameters are:
   expected shift applied by the system. Thus, ``shift_x=-2`` applied to the second helix of a layer, assuming ``default_x_h==11`` will actually shift
   the helix by 9.
 * ``tilt_<dimension>``: Being ``dimension`` either ``x``, ``y`` or ``z``. Tilts the secondary structure over the provided axis (in degrees).
+* ``edge``: 0 (default) means that it doesn't matter if the structure is the first/last structure of the topology, 1 means it has to be and edge structure
+  and -1 means it cannot be an edge structure. Logically, only a maximum of two structures can be labeled as 1, and, at least two topologies need to not
+  be -1.
 
 ``motifs``
 **********
@@ -177,7 +180,8 @@ This will produce an STDOUT output such as:
   Preparing and printing the final outputs
 
 The number of combinations depends on (a) the number of secondary structures, (b) the number of motif segments and (c) the distance limit
-to generate putative loops. Topologies with loop knots are removed from the final combinations.
+to generate putative loops. Mind that, the more combinations available, the more the protocol will take in generate all of them.
+Topologies with loop knots are removed from the final combinations.
 
 Creating the Topologies from the Generated Outputs
 --------------------------------------------------
@@ -203,6 +207,20 @@ topology available (topologies deemed impossible will not generate a folder). It
   drwxr-xr-x  14 bonet  staff   476B Sep  3 15:00 B2H_A2H_B1H_A1H
   drwxr-xr-x  14 bonet  staff   476B Sep  3 15:00 B2H_B1H_A1H_A2H
   drwxr-xr-x  14 bonet  staff   476B Sep  3 15:00 B2H_B1H_A2H_A1H
+
+To easily visualise the selected topologies and those discarded, one can go inside the ``config.name`` folder (still in a python2 environment) and execute:
+
+.. code-block:: bash
+
+  python -m SimpleHTTPServer
+
+By default, this will generate a web interface in ``http://0.0.0.0:8000`` that will allow the exploration of all the analysed candidate topologies. Be aware
+**not to call the web as https but as http**, as most browsers will now default to the secure connection but encryption is not directly supported by direct
+calls to the ``SimpleHTTPServer`` module.
+
+This visualization will highlight topologies discarded for **(a) edges**, meaning that they do not follow secondary structure edge rules (if provided),
+**(b) directions**, applied to multi-segment motifs, if the segments cannot be in the provided direction to fulfill connectivity or **(c) intersections**
+if there are loop knots.
 
 Inside each topology folder there are all the relevant files to successfully execute FunFolDes_ and obtain the final designs.
 The main files of interest are:
@@ -240,4 +258,4 @@ The last step would be moving into the folder of the topology/ies of interest an
 .. _Rosetta: https://www.rosettacommons.org/
 .. _2FX7: https://www.rcsb.org/structure/2FX7
 .. _FORM: https://www.sciencedirect.com/science/article/pii/S0969212609002950
-.. tutorial: https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/composite_protocols/fold_from_loops/FunFolDes
+.. _tutorial: https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/composite_protocols/fold_from_loops/FunFolDes

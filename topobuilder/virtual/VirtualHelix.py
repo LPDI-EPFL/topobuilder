@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-04-14 18:54:19
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 19:34:27
+# @Last modified by:   bonet
+# @Last modified time: 03-Sep-2019
 
 import numpy as np
 from VirtualStructure import VirtualStructure as VS
@@ -29,9 +29,9 @@ class VirtualHelixAlpha(VS):
     _ANGLES       = {"N": -28.3, "CA": 100, "C": 28.9, "O": 24.5, "H": -22.5}
 
     # CHOP780201 alpha-helix propensity AAindex (Chou-Fasman, 1978b)
-    # TO 0: G -> 0.57; P -> 0.57
+    # TO 0: G -> 0.57; P -> 0.57; C -> 0.70
     _AA_STAT = [("A", 1.42), ("L", 1.21), ("R", 0.98), ("K", 1.16), ("N", 0.67),
-                ("M", 1.45), ("D", 1.01), ("F", 1.13), ("C", 0.70), ("P", 0.00),
+                ("M", 1.45), ("D", 1.01), ("F", 1.13), ("C", 0.00), ("P", 0.00),
                 ("Q", 1.11), ("S", 0.77), ("E", 1.51), ("T", 0.83), ("G", 0.00),
                 ("W", 1.08), ("H", 1.00), ("Y", 0.69), ("I", 1.08), ("V", 1.06)]
 

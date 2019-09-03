@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: bonet
 # @Date:   2016-04-15 18:03:15
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 19:35:09
+# @Last modified by:   bonet
+# @Last modified time: 03-Sep-2019
 
 import numpy as np
 from VirtualStructure import VirtualStructure as VS
@@ -19,9 +19,9 @@ class VirtualBeta(VS):
     _SHIFT        = {"N": 0.400, "CA": 0.000, "C": 0.500, "O": 1.900} #"H": 1.35}
 
     # CHOP780202 beta-sheet propensity AAindex (Chou-Fasman, 1978b)
-    # TO 0: G -> 0.75; P -> 0.55
+    # TO 0: G -> 0.75; P -> 0.55; C -> 1.19
     _AA_STAT = [("A", 0.83), ("L", 1.30), ("R", 0.93), ("K", 0.74), ("N", 0.89),
-                ("M", 1.05), ("D", 0.54), ("F", 1.38), ("C", 1.19), ("P", 0.00),
+                ("M", 1.05), ("D", 0.54), ("F", 1.38), ("C", 0.00), ("P", 0.00),
                 ("Q", 1.10), ("S", 0.75), ("E", 0.37), ("T", 1.19), ("G", 0.00),
                 ("W", 1.37), ("H", 0.87), ("Y", 1.47), ("I", 1.60), ("V", 1.70)]
 
