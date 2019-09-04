@@ -215,7 +215,7 @@ To easily visualise the selected topologies and those discarded, one can go insi
 
   python -m SimpleHTTPServer
 
-By default, this will generate a web interface in ``http://0.0.0.0:8000`` that will allow the exploration of all the analysed candidate topologies. Be aware
+By default, this will generate a web interface in ``http://0.0.0.0:8000/combinations.html`` that will allow the exploration of all the analysed candidate topologies. Be aware
 **not to call the web as https but as http**, as most browsers will now default to the secure connection but encryption is not directly supported by direct
 calls to the ``SimpleHTTPServer`` module.
 
