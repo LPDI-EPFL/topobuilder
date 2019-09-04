@@ -87,6 +87,7 @@ To simplify, we will try a **4-helix bundle**. For that, we would write a **JSON
     ]
   }
 
+(files to execute this example can be found in the ``demo`` folder).
 
 ``config``, ``layers`` and ``motifs`` are the top, mandatory fields.
 
