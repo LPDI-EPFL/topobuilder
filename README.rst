@@ -15,7 +15,7 @@ Installation
 
 .. code-block:: bash
 
-  pip install https://github.com/lpdi-epfl/topobuilder/archive/v1.0.zip
+  pip install https://github.com/lpdi-epfl/topobuilder/archive/v1.0.0.zip
 
 
 Requirements
