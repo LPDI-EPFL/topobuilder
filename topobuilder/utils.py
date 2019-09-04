@@ -121,7 +121,7 @@ def prepare_forms(data, options):
             with open(os.path.join(tpl, "castor.submiter")) as fd:
                 castor = "".join(fd.readlines())
             castor = castor.format(options.user, data["config"]["name"].replace("/", "_") + "_" + x["id"],
-                                    200, data["config"]["rbin"])
+                                    200, data["config"]["rbin"], 100)
             with open(os.path.join(wdir, "submiter.sbatch"), "w") as fd:
                 fd.write(castor)
             bsh.write('sbatch submiter.sbatch\n')
