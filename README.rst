@@ -23,8 +23,8 @@ Requirements
 
 To complete a full *TopoBuilder* pipeline you will need:
 
-* The Rosetta_ design suite is needed.
-* The Rosetta tools repo to access the ``make_fragments.pl`` script, and the requirements this script needs.
+* The Rosetta_ design suite.
+* Python>=2.6<3.0
 
 How to Create a Topobuilder Input File
 --------------------------------------
