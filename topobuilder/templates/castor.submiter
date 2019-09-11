@@ -5,10 +5,9 @@
 #SBATCH --mem 8192
 #SBATCH --time 16:00:00
 #SBATCH --array=1-{2}
-#SBATCH --output=/scratch/{0}/logs/output.%A_%a.out
-#SBATCH --error=/scratch/{0}/logs/output.%A_%a.err
+#SBATCH --output=output.%A_%a.out
+#SBATCH --error=output.%A_%a.err
 
 mkdir -p out
 srun {3} -parser:protocol funfoldes.xml -in:file:s sketch_0001.pdb -out:nstruct {4} -out:prefix {1}_${{SLURM_ARRAY_TASK_ID}} -out:file:silent out/{1}_${{SLURM_ARRAY_TASK_ID}} -out:mute protocols.abinitio protocols.abinitio.foldconstraints
-fi
 echo "CASTOR: RUN FINISHED"
