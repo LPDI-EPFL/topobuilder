@@ -1,0 +1,8 @@
+- name: nomenclator
+  subnames: 3o41
+- name: motif_picker
+  source: pdbs/3o41.pdb
+  selection: P:427-436
+  hotspot: P:429
+  attach: [B4E, ]
+  shape: E

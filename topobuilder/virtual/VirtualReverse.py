@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-04-28 15:16:13
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 18:19:31
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
 
 import copy
 import numpy as np

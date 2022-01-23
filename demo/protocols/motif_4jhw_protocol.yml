@@ -1,0 +1,8 @@
+- name: nomenclator
+  subnames: 4jhw
+- name: motif_picker
+  source: pdbs/4jhw.pdb
+  selection: F:62-69,F:196-212
+  hotspot: F:201
+  attach: [C1H, C2H]
+  shape: HxH

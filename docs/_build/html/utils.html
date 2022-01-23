@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utility Functions &mdash; TopoBuilder 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Developing Your Own New Plugins" href="new_plugins.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TopoBuilder
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="current_plugins.html">Currently Available Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="new_plugins.html">Developing Your Own New Plugins</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utility Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot">Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#master">MASTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rosetta">Rosetta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slurm">Slurm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TopoBuilder</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Utility Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utility-functions">
+<span id="utils"></span><h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="topobuilder.utils.build_pdb_object">
+<code class="sig-name descname">build_pdb_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">sses</span></em>, <em class="sig-param"><span class="n">loops</span></em>, <em class="sig-param"><span class="n">concat</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">outfile</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.build_pdb_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make the parametrically build atoms in a <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> into a PDB file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job logger.</p></li>
+<li><p><strong>sses</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – List of the secondary structures to build. Each SSE dictionary must contain the
+<code class="docutils literal notranslate"><span class="pre">metadata.atoms</span></code> keys, already in the final expected position.</p></li>
+<li><p><strong>loops</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>], <a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Number of residues between SSE. It can be one less than the number of structures,
+which assumes no N- or C-terminal, or one more, which assumes N- and C-terminal residues.</p></li>
+<li><p><strong>concat</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – When <a class="reference external" href="https://docs.python.org/2/library/constants.html#True" title="(in Python v2.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">True</span></code></a>, return the full stucture as a single object, otherwise
+return a list of the individual parts.</p></li>
+<li><p><strong>outfile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – If provided, write the structure to file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Frame3D</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.get_loop_length">
+<code class="sig-name descname">get_loop_length</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">sse1</span></em>, <em class="sig-param"><span class="n">sse2</span></em>, <em class="sig-param"><span class="n">loop_step</span></em>, <em class="sig-param"><span class="n">loop_range</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.get_loop_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the expected number of residues to join two SSE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>sse1</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Frame3D</span></code>) – N-SSE.</p></li>
+<li><p><strong>sse2</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Frame3D</span></code>) – C-SSE.</p></li>
+<li><p><strong>loop_step</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Assumption on how much distance a residue can cover.</p></li>
+<li><p><strong>loop_range</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Plus-minus range of residue length.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.pdb_geometry_from_rules">
+<code class="sig-name descname">pdb_geometry_from_rules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pdb_file</span></em>, <em class="sig-param"><span class="n">rules</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.pdb_geometry_from_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the geometry statistic from a PDB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>]) – Job Logger.</p></li>
+<li><p><strong>pdb_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Frame3D</span></code>]) – The pdb file to calculate the geometry from.</p></li>
+<li><p><strong>rules</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>]) – The rules to be applied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="plot">
+<h2>Plot<a class="headerlink" href="#plot" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="topobuilder.utils.plot_fragment_templates">
+<code class="sig-name descname">plot_fragment_templates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">dfsmall</span></em>, <em class="sig-param"><span class="n">dflarge</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">write</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plot_fragment_templates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the fragment sources across the sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>dfsmall</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Small fragment set.</p></li>
+<li><p><strong>dflarge</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Large fragment set.</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Prefix for plot name.</p></li>
+<li><p><strong>write</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Shall the plot by saved (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plot_loop_length_distribution">
+<code class="sig-name descname">plot_loop_length_distribution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">dfloop</span></em>, <em class="sig-param"><span class="n">pick</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">write</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plot_loop_length_distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the loop length count distribution for a jump.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>dfloop</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Loop set for a particular jump.</p></li>
+<li><p><strong>pick</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – The selected length that was picked (for annotation on the plot).</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Prefix for plot name.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Plot title.</p></li>
+<li><p><strong>write</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Shall the plot by saved (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plot_match_bin">
+<code class="sig-name descname">plot_match_bin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">master_match</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">expected</span></em>, <em class="sig-param"><span class="n">groupby</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">write</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plot_match_bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the number of matches per defined bin of the <span class="xref std std-ref">MASTER</span> search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>master_match</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Collected <span class="xref std std-ref">MASTER</span> matches.</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Prefix for plot name.</p></li>
+<li><p><strong>expected</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – Limitation of y-axis height.</p></li>
+<li><p><strong>groupby</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – Groups to order by (e.g. close, mid, far, extreme).</p></li>
+<li><p><strong>write</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Shall the plot by saved (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plot_geometric_distributions">
+<code class="sig-name descname">plot_geometric_distributions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">write</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plot_geometric_distributions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the per SSE geometrical distributions from the <span class="xref std std-ref">MASTER</span> search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Calculated geometric statistics from the <span class="xref std std-ref">MASTER</span> search.</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Prefix for plot name.</p></li>
+<li><p><strong>write</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Shall the plot by saved (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plot_angle_network">
+<code class="sig-name descname">plot_angle_network</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">network</span></em>, <em class="sig-param"><span class="n">node_positions</span></em>, <em class="sig-param"><span class="n">sse_list</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">write</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plot_angle_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the per SSE geometrical distributions from the <span class="xref std std-ref">MASTER</span> search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>network</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DiGraph</span></code>) – Network Graph to use for angle network.</p></li>
+<li><p><strong>node_positions</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – Positions of the nodes (SSEs).</p></li>
+<li><p><strong>sse_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The SSEs to be considered.</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Prefix for plot name.</p></li>
+<li><p><strong>write</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Shall the plot by saved (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="master">
+<h2>MASTER<a class="headerlink" href="#master" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="topobuilder.utils.pds_database">
+<code class="sig-name descname">pds_database</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">filter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.pds_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide the list of target PDS as a file and a list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">master.pds</span></code> configuration option.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job logger.</p></li>
+<li><p><strong>filter</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – File containting the target subset, otherwise all PDS database is considered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.createPDS">
+<code class="sig-name descname">createPDS</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">infile</span></em>, <em class="sig-param"><span class="n">outfile</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.createPDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make the createPDS command call.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">master.create</span></code> configuration option.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>infile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – PDB file to convert.</p></li>
+<li><p><strong>outfile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Name of the expected PDS output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.master_best_each">
+<code class="sig-name descname">master_best_each</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">infile</span></em>, <em class="sig-param"><span class="n">outdir</span></em>, <em class="sig-param"><span class="n">rmsd</span><span class="o">=</span><span class="default_value">5.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.master_best_each" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create one MASTER call for each PDS file with the –topN 1 flag.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">master.master</span></code> configuration option
+Depends on the <code class="docutils literal notranslate"><span class="pre">master.pds</span></code> configuration option</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.master_fixedgap">
+<code class="sig-name descname">master_fixedgap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">query</span></em>, <em class="sig-param"><span class="n">pds_list</span></em>, <em class="sig-param"><span class="n">master_out</span></em>, <em class="sig-param"><span class="n">mdis</span></em>, <em class="sig-param"><span class="n">Mdis</span></em>, <em class="sig-param"><span class="n">rmsd_cut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.master_fixedgap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the <a class="reference internal" href="glossary.html#term-MASTER"><span class="xref std std-term">MASTER</span></a> executable for a fixed residue distance between matches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – Query PDS file.</p></li>
+<li><p><strong>pds_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – File with the database list of PDS targets.</p></li>
+<li><p><strong>master_out</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – Output file with the MASTER results.</p></li>
+<li><p><strong>mdis</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Minimum distance.</p></li>
+<li><p><strong>Mdis</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Maximum distance.</p></li>
+<li><p><strong>rmsd_cut</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – RMSD search cutoff.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.master_groupedgap">
+<code class="sig-name descname">master_groupedgap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">query</span></em>, <em class="sig-param"><span class="n">pds_list</span></em>, <em class="sig-param"><span class="n">master_out</span></em>, <em class="sig-param"><span class="n">gaps</span></em>, <em class="sig-param"><span class="n">rmsd_cut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.master_groupedgap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the <a class="reference internal" href="glossary.html#term-MASTER"><span class="xref std std-term">MASTER</span></a> executable for a fixed residue distance between matches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – Query PDS file.</p></li>
+<li><p><strong>pds_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – File with the database list of PDS targets.</p></li>
+<li><p><strong>master_out</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – Output file with the MASTER results.</p></li>
+<li><p><strong>gaps</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Allowed lengths between the gaps.</p></li>
+<li><p><strong>rmsd_cut</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – RMSD search cutoff.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.master_nogap">
+<code class="sig-name descname">master_nogap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">query</span></em>, <em class="sig-param"><span class="n">pds_list</span></em>, <em class="sig-param"><span class="n">master_out</span></em>, <em class="sig-param"><span class="n">rmsd_cut</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.master_nogap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the <a class="reference internal" href="glossary.html#term-MASTER"><span class="xref std std-term">MASTER</span></a> executable for a fixed residue distance between matches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – Query PDS file.</p></li>
+<li><p><strong>pds_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – File with the database list of PDS targets.</p></li>
+<li><p><strong>master_out</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – Output file with the MASTER results.</p></li>
+<li><p><strong>mdis</strong> – Minimum distance.</p></li>
+<li><p><strong>Mdis</strong> – Maximum distance.</p></li>
+<li><p><strong>rmsd_cut</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – RMSD search cutoff.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="plugins">
+<h2>Plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_title">
+<code class="sig-name descname">plugin_title</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plugin_path</span></em>, <em class="sig-param"><span class="n">cases</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print on-screen the plugin’s name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plugin_path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – <code class="docutils literal notranslate"><span class="pre">__file__</span></code> of the plugin’s main file.</p></li>
+<li><p><strong>cases</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of cases to which the plugin will be applied.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_case_count">
+<code class="sig-name descname">plugin_case_count</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cases</span></em>, <em class="sig-param"><span class="n">io</span><span class="o">=</span><span class="default_value">'o'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_case_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print on-screen the current number of cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cases</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Current number of cases.</p></li>
+<li><p><strong>io</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – If <code class="docutils literal notranslate"><span class="pre">i</span></code>: input. If <code class="docutils literal notranslate"><span class="pre">o</span></code>: output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_warning">
+<code class="sig-name descname">plugin_warning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format a warning and manage follow up behaviour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Warning text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_filemaker">
+<code class="sig-name descname">plugin_filemaker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_filemaker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Highlight the creation of new files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – File creation text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_imagemaker">
+<code class="sig-name descname">plugin_imagemaker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_imagemaker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Highlight the creation of new plot files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – File creation text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_filereader">
+<code class="sig-name descname">plugin_filereader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_filereader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Highlight the loading of files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – File reading text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_bash">
+<code class="sig-name descname">plugin_bash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_bash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show prepared bash statements to execute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – List of statements to show.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.plugin_conditions">
+<code class="sig-name descname">plugin_conditions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">metadata</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.plugin_conditions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> has reach the appropiate data content to be executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Plugin requirements defined by its <code class="docutils literal notranslate"><span class="pre">metadata</span></code> function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="rosetta">
+<h2>Rosetta<a class="headerlink" href="#rosetta" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="topobuilder.utils.constraint_design">
+<code class="sig-name descname">constraint_design</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">case</span></em>, <em class="sig-param"><span class="n">natbias</span></em>, <em class="sig-param"><span class="n">layer_design</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">motif</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">binder</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hotspots</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profile</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.constraint_design" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the design script upon a <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> with constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>case</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code>) – The case to use for constraints.</p></li>
+<li><p><strong>motif</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The motif to be inserted and kept fixed.</p></li>
+<li><p><strong>binder</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The context structure to be added during design.</p></li>
+<li><p><strong>hotspots</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – Motif hotspot residue to keep completely fixed.</p></li>
+<li><p><strong>profile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Sequence profile from fragments to guide design (default: False).</p></li>
+<li><p><strong>natbias</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The bias weight to favour correct SSE formation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptPieces</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.funfoldes">
+<code class="sig-name descname">funfoldes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">case</span></em>, <em class="sig-param"><span class="n">motif</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">binder</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hotspots</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.funfoldes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The general FunFoldDesMover script where input pose is the template, where the motif will be grafted into.
+Thus, if a binder is present, one needs to remove that one before running the NubInitioMover.
+The binder will be parsed together with the motif. Note, that after the NubInitioMover, the binder will
+be in the pose. We remove the binder as it is easier to work with files containing only the design afterwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>case</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code>) – The case to use for constraints.</p></li>
+<li><p><strong>motif</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The motif to be inserted and kept fixed.</p></li>
+<li><p><strong>binder</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – The context structure to be added during design.</p></li>
+<li><p><strong>hotspots</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>]) – Motif hotspot residue to keep completely fixed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.hybridize">
+<code class="sig-name descname">hybridize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">case</span></em>, <em class="sig-param"><span class="n">template</span></em>, <em class="sig-param"><span class="n">natbias</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.hybridize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the hybridize script upon a <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> with constraints.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Please be careful with the energy function setup.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>This implementation has not been fully tested and optimized.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>case</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code>) – The case to use for constraints.</p></li>
+<li><p><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The template apply the hybridization onto.</p></li>
+<li><p><strong>natbias</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The bias weight to favour correct SSE formation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.rosettascript">
+<code class="sig-name descname">rosettascript</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.rosettascript" title="Permalink to this definition">¶</a></dt>
+<dd><p>Global RosettaScripts XML template script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="slurm">
+<h2>Slurm<a class="headerlink" href="#slurm" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="topobuilder.utils.submit_slurm">
+<code class="sig-name descname">submit_slurm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">slurm_file</span></em>, <em class="sig-param"><span class="n">condition_file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.submit_slurm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits a slurm file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>slurm_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Slurm file to be submitted.</p></li>
+<li><p><strong>condition_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – The name of the condition file to track status.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="topobuilder.utils.submit_nowait_slurm">
+<code class="sig-name descname">submit_nowait_slurm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">slurm_file</span></em>, <em class="sig-param"><span class="n">dependency_mode</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dependency_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.utils.submit_nowait_slurm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submits a slurm file with dependency on all arrays to finish.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Job Logger.</p></li>
+<li><p><strong>slurm_file</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Slurm file to be submitted.</p></li>
+<li><p><strong>dependency_mode</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – The dependency status.</p></li>
+<li><p><strong>dependency_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – The dependency ID for tracking the submitted job.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="new_plugins.html" class="btn btn-neutral float-left" title="Developing Your Own New Plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Jaume Bonet
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

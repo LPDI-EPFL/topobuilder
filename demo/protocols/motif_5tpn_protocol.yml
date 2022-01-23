@@ -1,0 +1,8 @@
+- name: nomenclator
+  subnames: 5tpn
+- name: motif_picker
+  source: pdbs/5tpn.pdb
+  selection: A:162-171,A:177-180
+  hotspot: A:169
+  attach: [C2H, B4E]
+  shape: HlE

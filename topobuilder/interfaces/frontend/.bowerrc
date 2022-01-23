@@ -1,6 +1,0 @@
-{
-  "directory": "app/vendor/",
-  "scripts": {
-    "postinstall": "bash clean.sh"
-  }
-}

@@ -1,0 +1,14 @@
+pytest>=3.5
+pytest-cov>=2.5
+pytest-mpl>=0.9
+tox>=3.0
+coverage>=4.0.3
+coveralls
+python-coveralls
+codacy-coverage
+
+
+Ipython==7.2.0
+sphinx>=1.7
+rtcat_sphinx_theme>=0.1.1
+sphinx-argparse>=0.2.2

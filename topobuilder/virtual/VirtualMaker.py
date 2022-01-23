@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-04-26 17:25:07
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-04-28 15:01:03
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
 
 from .VirtualStructure import VirtualStructure
 from .VirtualHelix     import VirtualHelix

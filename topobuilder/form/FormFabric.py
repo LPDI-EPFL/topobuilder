@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-05-01 12:31:37
-# @Last modified by:   hartevel
-# @Last modified time: 2018-03-12T13:09:46+01:00
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
+
 import networkx as nx
 import numpy as np
 import copy

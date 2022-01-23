@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-04-15 18:03:15
-# @Last modified by:   bonet
-# @Last modified time: 03-Sep-2019
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
 
 import numpy as np
 from VirtualStructure import VirtualStructure as VS
