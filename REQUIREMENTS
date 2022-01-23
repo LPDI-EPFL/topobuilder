@@ -17,3 +17,4 @@ lxml
 logbook
 pandas<1.0.0
 StrBioInfo==0.9a0.dev1
+sphinx-autodoc-typehints
