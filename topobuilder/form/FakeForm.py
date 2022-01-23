@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-05-01 14:15:09
-# @Last modified by:   hartevel
-# @Last modified time: 2018-02-22T11:13:33+01:00
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
 
 import copy
 import numpy as np
@@ -35,7 +39,7 @@ class FakeForm(object):
         self.inter  = 1 if self._expected_intersection() else 0
         evals       = [self.edges, self.direct, self.inter]
         self.do     = True
-    
+
     def to_json(self):
         return { "id": self.id, "do": self.do, "up": self.turn,
                  "obeys": {"edges": self.edges,

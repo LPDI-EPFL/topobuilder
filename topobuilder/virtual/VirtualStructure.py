@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-04-14 14:08:23
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 17:48:22
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
+
 from collections import Iterable
 import copy
 from random import random

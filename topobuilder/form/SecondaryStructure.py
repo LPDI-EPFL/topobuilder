@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-05-01 12:15:57
-# @Last Modified by:   bonet
-# @Last Modified time: 2016-05-02 16:00:52
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
 
 import re
 from collections import Iterable

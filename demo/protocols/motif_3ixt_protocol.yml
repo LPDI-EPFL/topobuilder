@@ -1,0 +1,8 @@
+- name: nomenclator
+  subnames: 3ixt
+- name: motif_picker
+  source: pdbs/3ixt.pdb
+  selection: P:254-264,P:267-277
+  hotspot: P:271
+  attach: [A1H, A2H]
+  shape: HlH

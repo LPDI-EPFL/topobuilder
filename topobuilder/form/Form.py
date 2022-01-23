@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
-# @Author: bonet
-# @Date:   2016-05-01 12:30:36
-# @Last modified by:   bonet
-# @Last modified time: 03-Sep-2019
+"""
+.. codeauthor:: Jaume Bonet <jaume.bonet@gmail.com>
+.. codeauthor:: Zander Harteveld <zandermilanh@gmail.com>
+
+.. affiliation::
+    Laboratory of Protein Design and Immunoengineering <lpdi.epfl.ch>
+    Bruno Correia <bruno.correia@epfl.ch>
+"""
+
 import scipy
 import math
 import os

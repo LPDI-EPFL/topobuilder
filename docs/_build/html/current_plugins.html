@@ -1,0 +1,738 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Currently Available Plugins &mdash; TopoBuilder 0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developing Your Own New Plugins" href="new_plugins.html" />
+    <link rel="prev" title="TopoBuilder" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TopoBuilder
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Currently Available Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-management-and-visualization">Basic Management and Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#form-and-parametric">FORM and Parametric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loop-building-and-identification">Loop Building and Identification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#protein-backbone">Protein Backbone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sequence-design">Sequence Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#analytics">Analytics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="new_plugins.html">Developing Your Own New Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TopoBuilder</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Currently Available Plugins</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/current_plugins.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="currently-available-plugins">
+<span id="current-plugins"></span><h1>Currently Available Plugins<a class="headerlink" href="#currently-available-plugins" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basic-management-and-visualization">
+<h2>Basic Management and Visualization<a class="headerlink" href="#basic-management-and-visualization" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="topobuilder.base_plugins.nomenclator.nomenclator">
+<em class="property">class </em><code class="sig-name descname">nomenclator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">subnames</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.nomenclator.nomenclator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alters the <code class="docutils literal notranslate"><span class="pre">configuration.name</span></code> of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> by adding subnames.</p>
+<p>This affects on the creation of the subfolders where the rest of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>
+will be executed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On <strong>execution</strong>, the plugin will not append new subnames when those already exist. For example,
+if <code class="docutils literal notranslate"><span class="pre">configuration.name</span></code> is <code class="docutils literal notranslate"><span class="pre">1QYS_experiment1_naive</span></code> and <code class="docutils literal notranslate"><span class="pre">subnames=['experiment1',</span> <span class="pre">'naive']</span></code>,
+the final <code class="docutils literal notranslate"><span class="pre">configuration.name</span></code> will still be <code class="docutils literal notranslate"><span class="pre">1QYS_experiment1_naive</span></code> and not
+<code class="docutils literal notranslate"><span class="pre">1QYS_experiment1_naive_experiment1_naive</span></code>. This is to avoid folder recursion generation when
+re-running a previous <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>There are some keywords that cannot be used as a subname due to them generating their own
+<strong>first level</strong> subfolders. These keywords are <code class="docutils literal notranslate"><span class="pre">architecture</span></code>, <code class="docutils literal notranslate"><span class="pre">connectivity</span></code>, <code class="docutils literal notranslate"><span class="pre">images</span></code>
+and <code class="docutils literal notranslate"><span class="pre">summary</span></code>. Trying to add one of those terms as subname will generate a <code class="xref py py-class docutils literal notranslate"><span class="pre">NodeDataError</span></code>
+on <strong>check</strong> time.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>When developing a new plugin, if it is expected to create new <strong>first level</strong> subfolders, they should
+be listed in the class attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">nomenclator.RESERVED_KEYWORDS</span></code>. See more on how to
+<span class="xref std std-ref">develop your own plugins</span>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>subnames</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>], <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Subnames that will be added to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> initial name.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeOptionsError</dt>
+<dd class="field-odd"><p>On <strong>initialization</strong>. If a reserved key is provided as a subname.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="topobuilder.base_plugins.plotter.plotter">
+<em class="property">class </em><code class="sig-name descname">plotter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">outfile</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">plot_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.plotter.plotter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create visual representations of the <a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">system.image</span></code> configuration option</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>This <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> overwrite the execute function to be able to generate
+multi-Case images.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outfile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – Selected outfile/outdir for the plot.</p></li>
+<li><p><strong>prefix</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – File prefix if outfile is a dir.</p></li>
+<li><p><strong>plot_types</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – Select the expected plot (from available options).</p></li>
+</ul>
+</dd>
+</dl>
+<p>For each plot type, a dict can be provided with extra parameters to control plotting.
+Parameters are defined for <code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_case_sketch()</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="field-list simple">
+<dt class="field-odd">NodeOptionsError</dt>
+<dd class="field-odd"><p>On <strong>initialization</strong>. If an unknown plot is required.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>execution</strong>. If the requested corrections do not meet the criteria imposed by the
+<a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="form-and-parametric">
+<h2>FORM and Parametric<a class="headerlink" href="#form-and-parametric" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="topobuilder.base_plugins.builder.builder">
+<em class="property">class </em><code class="sig-name descname">builder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">connectivity</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">motif</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pick_aa</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">write2disc</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.builder.builder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds and adds a <a class="reference internal" href="glossary.html#term-SKETCH"><span class="xref std std-term">SKETCH</span></a> from given <a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a> string to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> using ideal SSE elements.</p>
+<p>If corrections are available and specified, these will be applied onto the <a class="reference internal" href="glossary.html#term-SKETCH"><span class="xref std std-term">SKETCH</span></a>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>In order to apply secondary structure or per layer corrections, the <code class="xref py py-mod docutils literal notranslate"><span class="pre">corrector</span></code> plugin
+needs to be set in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connectivity</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Expected secondary structure connectivity. <em>Important</em>: at the moment only a single
+connectivity supported (default: True).</p></li>
+<li><p><strong>motif</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Expected Motif to be added to the <a class="reference internal" href="glossary.html#term-SKETCH"><span class="xref std std-term">SKETCH</span></a> (default: False).</p></li>
+<li><p><strong>pick_aa</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Desired amino acid type to use for the <a class="reference internal" href="glossary.html#term-SKETCH"><span class="xref std std-term">SKETCH</span></a> sequence. If not specified, it will
+use pseudorandomly assign amino acid types based on secondary structure propensity scores.</p></li>
+<li><p><strong>write2disc</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Dump the <a class="reference internal" href="glossary.html#term-SKETCH"><span class="xref std std-term">SKETCH</span></a> (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>execution</strong>. If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> contains anything other than one defined connectivity.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="topobuilder.base_plugins.make_topologies.make_topologies">
+<em class="property">class </em><code class="sig-name descname">make_topologies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">representatives</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sampling</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.make_topologies.make_topologies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates, explores and evaluates all possible connectivites (topologies) of a given architecture.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">configuration.defaults.distance.max_loop</span></code> configuration.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>representatives</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If True, it will evalute the explored topologies (default: False).</p></li>
+<li><p><strong>sampling</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Number of topologies to randomly sample from the explored topologies. E.g. <cite>sampling = 1</cite>
+will sample all topologies; <cite>sampling = .25</cite> will randomly sample 25% of the topologies
+(default: 1).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>execution</strong>. If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> contains anything other than one defined connectivity.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="topobuilder.base_plugins.corrector.corrector">
+<em class="property">class </em><code class="sig-name descname">corrector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">corrections</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.corrector.corrector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies corrections to the placements of the secondary structures in a <a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a>.</p>
+<p>This affects on placement and angles of the different secondary structures. Corrections are defined through
+a controlled vocabulary.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Structural motifs imported through the <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> <a class="reference internal" href="#topobuilder.base_plugins.motif_picker.motif_picker" title="topobuilder.base_plugins.motif_picker.motif_picker"><code class="xref py py-class docutils literal notranslate"><span class="pre">motif_picker</span></code></a> will impose constraints on
+the way structures can move with respect to each other, thus making some corrections impossible to
+fulfill.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>Whenever a plugin has to apply geometric and positional changes to the <a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a>, it should be
+done through this class.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>corrections</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]], <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – Per secondary structure or per layer corrections to be applied.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>execution</strong>. If the requested corrections do not meet the criteria imposed by the
+<a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="topobuilder.base_plugins.motif_picker.motif_picker">
+<em class="property">class </em><code class="sig-name descname">motif_picker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">selection</span></em>, <em class="sig-param"><span class="n">hotspot</span></em>, <em class="sig-param"><span class="n">attach</span></em>, <em class="sig-param"><span class="n">binder</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">identifier</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.motif_picker.motif_picker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recovers a motif of interest from a protein structure to map upon a <a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By adding a motif linking it to one or more secondary structres, several restrictions are added to the system.
+These may include relative positioning, sequence order and positioning, amongst others.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>A part from adding the <code class="docutils literal notranslate"><span class="pre">metadata.motif_picker</span></code> field to the general <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code>, this <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> adds
+information to the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> field of selected secondary structures. Ignoring these metadata in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> that alters positioning and orientation of the secondary structures will result in broken
+functional motifs. When applying corrections it should be done through the <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> type <a class="reference internal" href="#topobuilder.base_plugins.corrector.corrector" title="topobuilder.base_plugins.corrector.corrector"><code class="xref py py-class docutils literal notranslate"><span class="pre">corrector</span></code></a>,
+in which this restrictions are already taken into account.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Path to the PDB file of interest containing the motif.</p></li>
+<li><p><strong>selection</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Range selection of the motif segments. Position <strong>must be defined as chain and PDB identifier</strong>,
+that means number and insertion code, if any. Thus, one motif could be selected as <code class="docutils literal notranslate"><span class="pre">A:10-25</span></code> when belonging
+to chain <code class="docutils literal notranslate"><span class="pre">A</span></code>, while multi-segment motifs are made of selections separated by <code class="docutils literal notranslate"><span class="pre">,</span></code>.</p></li>
+<li><p><strong>hotspot</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Selection of a single position that belongs to the exposed part of the interface. This residue is
+used as a guide to understand the motif’s placement. This selection has to follow the same format as selection,
+but without a range.</p></li>
+<li><p><strong>attach</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – <a class="reference internal" href="glossary.html#term-FORM"><span class="xref std std-term">FORM</span></a> name of the secondary structure to which the segments need to be attached.
+If there is more than one segment, names should be provided in a list.</p></li>
+<li><p><strong>binder</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Range selection for the binder. It can be provided as a range same as <code class="docutils literal notranslate"><span class="pre">selection</span></code> or as one or a
+comma-separated list of chain identifiers.</p></li>
+<li><p><strong>identifier</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Name to give the motif. Otherwise a name is picked related to the position of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code>
+in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeOptionsError</dt>
+<dd class="field-odd"><p>On <strong>initialization</strong>. If the provided structure source file does not exist.</p>
+</dd>
+<dt class="field-even">NodeOptionsError</dt>
+<dd class="field-even"><p>On <strong>initialization</strong>. If the number of requested segments does not match the
+number of secondary structures to attach them.</p>
+</dd>
+<dt class="field-odd">NodeOptionsError</dt>
+<dd class="field-odd"><p>On <strong>initialization</strong>. If the number of requested segments does not match the
+shape definition.</p>
+</dd>
+<dt class="field-even">NodeOptionsError</dt>
+<dd class="field-even"><p>On <strong>initialization</strong>. If any secondary structure identifier in <code class="docutils literal notranslate"><span class="pre">attach</span></code> does
+not match <em>TopoBuilder</em> naming system.</p>
+</dd>
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="loop-building-and-identification">
+<h2>Loop Building and Identification<a class="headerlink" href="#loop-building-and-identification" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="topobuilder.base_plugins.loop_master.loop_master">
+<em class="property">class </em><code class="sig-name descname">loop_master</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">loop_range</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">top_loops</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">hairpins_2</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">rmsd_cut</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">filter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.loop_master.loop_master" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find loops capable of closing a super-secondary structure with <a class="reference internal" href="glossary.html#term-MASTER"><span class="xref std std-term">MASTER</span></a> searches.</p>
+<p>The search will provide loops for each pair of SSE, together with fragment sets covering each
+super-secondary structure.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">master.pds</span></code> configuration option.
+Depends on the <code class="docutils literal notranslate"><span class="pre">loop_master.abego</span></code> configuration option.
+Depends on the <code class="docutils literal notranslate"><span class="pre">loop_master.fragments</span></code> configuration option.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>In order to execute this <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code>, <a class="reference external" href="https://grigoryanlab.org/master/">MASTER</a> needs
+to be installed.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>Due to its use in multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code>, functions to deal with master are mostly located
+in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">utils</span></code> module.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loop_range</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Expected loop length is calculated from the euclidian distance between two secondary
+structures. This attribute adds a window of <code class="docutils literal notranslate"><span class="pre">loop_range</span></code> residues under and over the calculated
+length (default: 3).</p></li>
+<li><p><strong>top_loops</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Number of loops that are selected from the sorted matches to retrieve final
+loop candidates (default: 20).</p></li>
+<li><p><strong>hairpins_2</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – When <a class="reference external" href="https://docs.python.org/2/library/constants.html#True" title="(in Python v2.7)"><code class="xref py py-data docutils literal notranslate"><span class="pre">True</span></code></a>, enforce 2-residue loops on beta hairpins (default: True).</p></li>
+<li><p><strong>rmsd_cut</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – Threshold value to include loops as match candidates (default: 5.0).</p></li>
+<li><p><strong>filter</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – List of PDB identifiers to use for the search. If nothing is provided, the full database,
+as defined by the <code class="docutils literal notranslate"><span class="pre">master.pds</span></code> global option, will be used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>initialization</strong>. If the PDS database, the ABEGO or fragments cannot be found.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>execution</strong>. If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> contains anything other than one defined connectivity.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="protein-backbone">
+<h2>Protein Backbone<a class="headerlink" href="#protein-backbone" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="topobuilder.base_plugins.imaster.imaster">
+<em class="property">class </em><code class="sig-name descname">imaster</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">correctives</span><span class="o">=</span><span class="default_value">{'rotate': ['x'], 'translate': ['y']}</span></em>, <em class="sig-param"><span class="n">rmsd</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">bin</span><span class="o">=</span><span class="default_value">'mid'</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsampling</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mirror_beta_twist</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mirror_beta_shear</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">corrections</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">correction_type</span><span class="o">=</span><span class="default_value">'network'</span></em>, <em class="sig-param"><span class="n">correction_check</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.imaster.imaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for defined per secondary structure or layer corrections by matching layer-wise against
+a defined <span class="xref std std-ref">MASTER</span> database. If a beta-layer is present, this will be the starting layer to be
+corrected. Multiple beta-layers are sorted by size (number of strands) and the largest one is set as
+starting layer. From there on, all next layers will be corrected paire-wise, e.g. the previous
+corrected layer together with the next layer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multiple correction shemes can be set. The default correction sheme is layer tilt around the x-axis and
+layer points (shifts) along the y-axis.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Depending on the size of the queried <span class="xref std std-ref">MASTER</span> database, this may take <em>a lot of time</em>.
+If possible, please use the <code class="docutils literal notranslate"><span class="pre">slurm.use</span></code> configuration. In case this is not possible, you may
+reduce the size of the database by setting <code class="docutils literal notranslate"><span class="pre">master.pds</span></code> pointing to fewer structures to search over.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>Due to the possibilty of external <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code>, main function is located in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">imaster</span></code> module.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rmsd</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – RMSD threshold for master search (default: 5.0).</p></li>
+<li><p><strong>bin</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Starting bin for master corrections (default: mid).</p></li>
+<li><p><strong>step</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Path of how the layers are searched for corrections.</p></li>
+<li><p><strong>subsampling</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Subsampling matches to accelerated calculations.</p></li>
+<li><p><strong>corrections</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – File containing the corrections.</p></li>
+<li><p><strong>mirror_beta_twist</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Invert beta sheet twist (default: False).</p></li>
+<li><p><strong>mirror_beta_shear</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Invert beta sheet shear between layers (default: False).</p></li>
+<li><p><strong>correction_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Analysis method [‘network’, ‘mode’] to use for corrections (default: ‘network’).</p></li>
+<li><p><strong>correction_check</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Check if corrections have been correctly applied across the layers (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeOptionsError</dt>
+<dd class="field-odd"><p>On <strong>initialization</strong>. If a reserved key is provided as a subname.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="topobuilder.base_plugins.fragment_maker.fragment_maker">
+<em class="property">class </em><code class="sig-name descname">fragment_maker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">protocol</span></em>, <em class="sig-param"><span class="n">script</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.fragment_maker.fragment_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates or mixes fragments that are needed in multiple Rosetta protocols. Mutliple ways of creating fragments
+are possible through different protocols.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, solely the <code class="docutils literal notranslate"><span class="pre">loop_fragment</span></code> protocol is implemented.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>In order to create fragments with the <code class="docutils literal notranslate"><span class="pre">loop_fragment</span></code> protocol, the <code class="xref py py-mod docutils literal notranslate"><span class="pre">loop_fragments</span></code> plugin
+needs to be set in the <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protocol</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Fragment creation protocol to be used.</p></li>
+<li><p><strong>script</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <a class="reference external" href="https://docs.python.org/2/library/constants.html#None" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]) – Rosetta script to pick fragments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-even">NodeDataError</dt>
+<dd class="field-even"><p>On <strong>execution</strong>. If the <code class="xref py py-class docutils literal notranslate"><span class="pre">Case</span></code> contains anything other than one defined connectivity.</p>
+</dd>
+<dt class="field-odd">NodeMissingError</dt>
+<dd class="field-odd"><p>On <strong>exection</strong>. If required variable inputs are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="sequence-design">
+<h2>Sequence Design<a class="headerlink" href="#sequence-design" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="topobuilder.base_plugins.funfoldes.funfoldes">
+<em class="property">class </em><code class="sig-name descname">funfoldes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">nstruct</span><span class="o">=</span><span class="default_value">2000</span></em>, <em class="sig-param"><span class="n">design_nstruct</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">natbias</span><span class="o">=</span><span class="default_value">2.5</span></em>, <em class="sig-param"><span class="n">profile</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">layer_design</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.funfoldes.funfoldes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run Rosettas FunFolDes protocol to generate designs.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Due to the <code class="docutils literal notranslate"><span class="pre">FastDesignMover</span></code>, this <a class="reference internal" href="#topobuilder.base_plugins.funfoldes.funfoldes" title="topobuilder.base_plugins.funfoldes.funfoldes"><code class="xref py py-class docutils literal notranslate"><span class="pre">funfoldes</span></code></a> may take <em>a lot</em> of time. If possible, please
+use the <code class="docutils literal notranslate"><span class="pre">slurm.use</span></code> configuration. In case this is not possible, you may reduce the number of decoys
+to be generated via the <cite>nstruct</cite> parameter option.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nstruct</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Number of decoys to be generated during assembly stage (default: 2000).</p></li>
+<li><p><strong>nstruct_design</strong> – Number of decoys to be generated during design stage (default: 10).</p></li>
+<li><p><strong>natbias</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – Score function bias towards per secondary structure types (default: 2.5).</p></li>
+<li><p><strong>profile</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – Use a sequence profile derived from structure fragments for design (default: False).</p></li>
+<li><p><strong>layer_design</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – If <a class="reference internal" href="#topobuilder.base_plugins.funfoldes.funfoldes" title="topobuilder.base_plugins.funfoldes.funfoldes"><code class="xref py py-class docutils literal notranslate"><span class="pre">funfoldes</span></code></a> should a layer design approach (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-even">NodeMissingError</dt>
+<dd class="field-even"><p>On <strong>exection</strong>. If required variable inputs are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="topobuilder.base_plugins.hybridize.hybridize">
+<em class="property">class </em><code class="sig-name descname">hybridize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">nstruct</span><span class="o">=</span><span class="default_value">2000</span></em>, <em class="sig-param"><span class="n">natbias</span><span class="o">=</span><span class="default_value">2.5</span></em>, <em class="sig-param"><span class="n">layer_design</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.hybridize.hybridize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run Rosettas hybridize protocol to generate designs.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Due to the <code class="docutils literal notranslate"><span class="pre">FastDesignMover</span></code>, this <code class="xref py py-class docutils literal notranslate"><span class="pre">funfoldes</span></code> may take <em>a lot</em> of time. If possible, please
+use the <code class="docutils literal notranslate"><span class="pre">slurm.use</span></code> configuration. In case this is not possible, you may reduce the number of decoys
+to be generated via the <cite>nstruct</cite> parameter option.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nstruct</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Number of decoys to be generated (default: 2000).</p></li>
+<li><p><strong>natbias</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – Score function bias towards per secondary structure types (default: 2.5).</p></li>
+<li><p><strong>layer_design</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>]) – If <code class="xref py py-class docutils literal notranslate"><span class="pre">funfoldes</span></code> should a layer design approach (default: True).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+<dt class="field-even">NodeMissingError</dt>
+<dd class="field-even"><p>On <strong>exection</strong>. If required variable inputs are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="analytics">
+<h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="topobuilder.base_plugins.statistics.statistics">
+<em class="property">class </em><code class="sig-name descname">statistics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">stage</span></em>, <em class="sig-param"><span class="n">analysis</span></em>, <em class="sig-param"><span class="n">metric</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#topobuilder.base_plugins.statistics.statistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Various statistics on the sequence and structure level are computed depending on available scripts.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depends on the <code class="docutils literal notranslate"><span class="pre">statistic.molprobity</span></code> configuration option.
+Depends on the <code class="docutils literal notranslate"><span class="pre">statistic.tmalign</span></code> configuration option.
+Depends on the <code class="docutils literal notranslate"><span class="pre">statistic.trrosetta_repo</span></code> configuration option.
+Depends on the <code class="docutils literal notranslate"><span class="pre">statistic.trrosetta_wts</span></code> configuration option.
+Depends on the <code class="docutils literal notranslate"><span class="pre">statistic.trrosetta_env</span></code> configuration option.</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>In order to execute this <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code>, we highly recommend to install <cite>trRosetta</cite> with all dependencies.
+The external conda environment can be specified in the <code class="docutils literal notranslate"><span class="pre">statistic.trrosetta_env</span></code> configuration option.</p>
+</div>
+<div class="admonition-to-developers admonition">
+<p class="admonition-title">To Developers</p>
+<p>Due to its use in multiple <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code>, functions to deal with this <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> are mostly located
+in the respective module file and external scripts are locate in this <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code> directory.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loop_range</strong> – Expected loop length is calculated from the euclidian distance between two secondary
+structures. This attribute adds a window of <code class="docutils literal notranslate"><span class="pre">loop_range</span></code> residues under and over the calculated
+length.</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Plugin designs come from, e.g. <code class="xref py py-class docutils literal notranslate"><span class="pre">funfoldes</span></code>.</p></li>
+<li><p><strong>stage</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The type of design, e.g. folded or designed.</p></li>
+<li><p><strong>analysis</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Geometric or quality assessment.</p></li>
+<li><p><strong>metric</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – Type of geometric or quality assessment.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="field-list simple">
+<dt class="field-odd">NodeDataError</dt>
+<dd class="field-odd"><p>On <strong>check</strong>. If the required fields to be executed are not there.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="new_plugins.html" class="btn btn-neutral float-right" title="Developing Your Own New Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="TopoBuilder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019, Jaume Bonet
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

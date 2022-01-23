@@ -1,0 +1,8 @@
+- name: nomenclator
+  subnames: 3vtt
+- name: motif_picker
+  source: pdbs/3vtt.pdb
+  selection: A:652-658,A:665-670
+  hotspot: A:668
+  attach: [B1E, B2E]
+  shape: ElE

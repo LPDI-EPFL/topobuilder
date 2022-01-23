@@ -1,0 +1,9 @@
+- name: nomenclator
+  subnames: 2fx7
+- name: motif_picker
+  source: pdbs/2fx7.pdb
+  selection: P:671-686
+  hotspot: P:676
+  binder: H,L
+  attach: [C1H, ]
+  shape: H

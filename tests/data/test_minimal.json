@@ -1,0 +1,30 @@
+{
+  "configuration": {
+    "name": "test_minimal",
+    "user": "bonet",
+    "defaults": {
+      "length": {
+        "H": 13,
+        "E": 7
+      },
+      "distance": {
+        "aa": 10.0,
+        "ab": 11.0,
+        "bb_pair": 4.85,
+        "bb_stack": 8.0,
+        "max_loop": 18.97
+      }
+    },
+    "relative": true,
+    "reoriented": false,
+    "protocols": [],
+    "comments": [
+      "0+untagged.48.g5fc3eac.dirty"
+    ]
+  },
+  "topology": {
+    "architecture": [
+      []
+    ]
+  }
+}
