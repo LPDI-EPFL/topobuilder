@@ -15,6 +15,5 @@ jinja2
 beautifulsoup4
 lxml
 logbook
-pandas<1.0.0
+pandas==0.24.0
 StrBioInfo==0.9a0.dev1
-sphinx-autodoc-typehints
