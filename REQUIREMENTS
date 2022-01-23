@@ -15,5 +15,5 @@ jinja2
 beautifulsoup4
 lxml
 logbook
-pandas==0.24.0
+pandas
 StrBioInfo==0.9a0.dev1
