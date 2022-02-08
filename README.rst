@@ -1,4 +1,5 @@
-![logo](img/tblogo.png){:height="36px" width="36px"}.
+.. image:: img/tblogo.png
+   :scale: 30 %
 
 TopoBuilder
 ===========
