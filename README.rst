@@ -1,4 +1,4 @@
-.. image:: img/tblogo.png =250x250
+<img src="img/tblogo.png" alt="" width="250"/>
 
 TopoBuilder
 ===========
