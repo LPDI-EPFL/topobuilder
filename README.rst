@@ -1,7 +1,7 @@
 .. image:: img/tblogo.png 
    :height: 400px
    :width: 400 px
-   :align: middle
+   :align: "center"
 
 TopoBuilder
 ===========
