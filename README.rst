@@ -1,6 +1,6 @@
 .. image:: img/tblogo.png 
-   :height: 100px
-   :width: 200 px
+   :height: 400px
+   :width: 400 px
 
 TopoBuilder
 ===========
