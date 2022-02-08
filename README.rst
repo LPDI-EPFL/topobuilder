@@ -1,4 +1,4 @@
-<img src="img/tblogo.png" alt="" width="250"/>
+![logo](img/tblogo.png){:height="36px" width="36px"}.
 
 TopoBuilder
 ===========
