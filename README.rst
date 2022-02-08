@@ -1,4 +1,4 @@
-.. image:: img/tblogo.png
+.. image:: img/tblogo.png =250x250
 
 TopoBuilder
 ===========
@@ -6,7 +6,9 @@ TopoBuilder
 The TopoBuilder is a framework for template free de novo protein design and is specifically useful for the construction of protein scaffolds around functional structural motifs of interest. It has been fully re-implemented in a modular, seamless fashion with many new features and utilites that make it easy to modify and customize.
 
 This repository contains the *TopoBuilder framework* as described in:
-Zander Harteveld, Jaume Bonet, Stéphane Rosset, Che Yang, Fabian Sesterhenn, and Bruno E. Correia. A generic framework for layered de novo protein design. (2021)
+Zander Harteveld, Jaume Bonet, Stéphane Rosset, Che Yang, Fabian Sesterhenn, and Bruno E. Correia. A hierarchical framework for layered de novo protein design. (2022)
+
+`Documentation <https://topobuilder.readthedocs.io/en/master/>`_.
 
 Installation
 ------------
@@ -44,4 +46,6 @@ The code lives within the [topobuilder](topobuilder/) directory. We will briefly
 * utils: Utility functions shared across multiple plugins.
 * base_plugins: Various plugins to do different manipulations on the case object.
 
-Please see the documentation for further explanation of all entry-points, plugins (and how to create your own custom plugin) and utilities available. Additional, we explain how to setup a pipeline and showcase different examples `here <https://github.com/LPDI-EPFL/TopoBuilderData>`_.
+Please see the documentation for further explanation of all entry-points, plugins (and how to create your own custom plugin) and utilities available. Additional, we explain how to setup a pipeline and showcase different examples `here <https://github.com/zanderharteveld/tbpipeline>`_.
+
+
