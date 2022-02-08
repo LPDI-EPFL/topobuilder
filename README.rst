@@ -1,5 +1,4 @@
-.. image:: img/tblogo.png
-   :scale: 30 %
+.. image:: img/tblogo.png :scale: 30 %
 
 TopoBuilder
 ===========
